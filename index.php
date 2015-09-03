@@ -21,10 +21,14 @@
       <div class="container">
     <h1>Hello, world!</h1>
     
-    <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-plus"></i> New Record </button>
-    <a href="#" class="btn btn-success"><i class="glyphicon glyphicon-trash"></i> Delete </a>
+   
     
-    <table class="table table-striped">
+
+    <div class="row">
+        <div class="col-sm-8">
+          <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-plus"></i> New Record </button>
+          <a href="#" class="btn btn-success"><i class="glyphicon glyphicon-trash"></i> Delete <span class="badge">2</span> </a>
+           <table class="table table-striped">
         <thead>
           <tr>
             <th>#</th>
@@ -54,11 +58,37 @@
           </tr>
         </tbody>
       </table>
+        </div>
+        <div class="col-sm-4">
+                <div class="alert alert-success" role="alert">You did well.</div>
+      <div class="progress">
+          <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+            <span class="sr-only">40% Complete (success)</span>
+          </div>
+        </div>
+    <div class="progress">
+      <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+    <span class="sr-only">20% Complete</span>
+  </div>
+</div>
+<div class="progress">
+  <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+    <span class="sr-only">60% Complete (warning)</span>
+          </div>
+        </div>
+        </div>
+    </div>
+     
+      
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+        $(".progress-bar").animate({width: "75%"}, 6000)
+    </script>
     </div>
   </body>
 </html>
