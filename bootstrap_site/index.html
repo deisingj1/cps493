@@ -10,6 +10,27 @@
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<style>
+		nav {
+			color: #eeeeee;
+			font-size: 28px;
+			text-align: center;
+		}
+		.form-group {
+			padding-top: 5px;
+			padding-bottom: 5px;
+			width: 100%;
+			float: left;
+			display: block;
+		}
+		#search {
+		}
+		button {
+			width: 40px;
+			height: 34px;
+		}
+		
+	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,27 +41,29 @@
   </head>
   <body style="background-color:white">
   	<div class="container">
-    	<div class="row" style="background-image: url(a_brown.jpg)">
-    		<div class="col-sm-2">
-    			<img class="img-responsive img-circle" src="rs_logo.png">
-    		</div>
-    		<div class="col-sm-10">
-    			<div class="row">
-	   				<h1>Los Angeles River Sharks</h1>
-	   			</div>
-	   			<div class="row">
-	   				Nav
-	   				Stuff
-	   				And others
-	   			</div>
+   		<div class="row" style="background-image: url(a_brown.jpg); background-size: cover">
+       		<div class="col-sm-3 col-xs-4">
+    			<img class="img-circle img-responsive" style="margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;" src="rs_logo.png">
     		</div>
     	</div>
-    	<div class="row">
+    	<div class="row" style="background-color:black;">
+    		<div class="col-sm-3" style="background-color:red; padding-left: 5px; padding-right:5px;">
+    			<div class="row">
+    				<div class="col-xs-12">
+    				<form class="form-inline">
+    					<div class="form-group">
+    						<input type="text" class="form-control" id="search" placeholder="Search">
+    						<button type="button" class="btn" style="float:right;">
+    							<span class="glyphicon glyphicon-search"></span>
+    						</button>
+    					</div>
+    				</form>
+    				</div>
+    			</div>
+       		</div>
+       		
     		<div class="col-sm-2">
-    			<ul>
-    				<li>Team Roster</li>
-    				<li>Schedule</li>
-    			</ul>
+    			<nav>News</nav>
     		</div>
     	</div>
     </div>
