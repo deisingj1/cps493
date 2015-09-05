@@ -20,10 +20,12 @@
 			padding-top: 5px;
 			padding-bottom: 5px;
 			width: 100%;
-			float: left;
-			display: block;
+		}
+		.form-inline {
+			float: right;
 		}
 		#search {
+			
 		}
 		button {
 			width: 40px;
@@ -47,24 +49,23 @@
     		</div>
     	</div>
     	<div class="row" style="background-color:black;">
-    		<div class="col-sm-3" style="background-color:red; padding-left: 5px; padding-right:5px;">
+    		<nav class="col-sm-3">News</nav>
+    		<nav class="col-sm-3">Roster</nav>
+    		<nav class="col-sm-3">Others</nav>
+    		<div class="col-sm-3" style="padding-left: 5px; padding-right:5px;">
     			<div class="row">
-    				<div class="col-xs-12">
-    				<form class="form-inline">
-    					<div class="form-group">
-    						<input type="text" class="form-control" id="search" placeholder="Search">
-    						<button type="button" class="btn" style="float:right;">
-    							<span class="glyphicon glyphicon-search"></span>
-    						</button>
-    					</div>
-    				</form>
+    				<div class="col-sm-12">
+	    				<form class="form-inline">
+	    					<div class="form-group">
+	    						<input type="text" class="form-control" id="search" placeholder="Search">
+	    						<button type="button" class="btn">
+	    							<span class="glyphicon glyphicon-search"></span>
+	    						</button>
+	    					</div>
+	    				</form>
     				</div>
     			</div>
        		</div>
-       		
-    		<div class="col-sm-2">
-    			<nav>News</nav>
-    		</div>
     	</div>
     </div>
 
