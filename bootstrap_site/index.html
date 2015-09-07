@@ -13,12 +13,12 @@
 	<style>
 		.container {
 			background-color: black;
-			color: #EEEEEE;
 		}
 		nav {
 			color: #eeeeee;
-			font-size: 28px;
+			font-size: 24px;
 			text-align: center;
+			vertical-align: middle;
 		}
 		.form-group {
 			padding-top: 5px;
@@ -42,6 +42,9 @@
 		.padded-div {
 			margin: 5px 5px 5px 5px;
 		}
+		.black-bg {
+			color: #EEEEEE;
+		}
 		
 	</style>
 
@@ -63,14 +66,14 @@
     		<div class="col-sm-3" style="padding-left: 5px; padding-right:5px;">
     			<div class="row">
     				<div class="col-sm-12">
-	    				<form class="form-inline">
-	    					<div class="form-group">
-	    						<input type="text" class="form-control" id="search" placeholder="Search">
-	    						<button type="button" class="btn">
-	    							<span class="glyphicon glyphicon-search"></span>
-	    						</button>
-	    					</div>
-	    				</form>
+	    				<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search for...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+							</span>
+    					</div>
     				</div>
     			</div>
        		</div>
@@ -80,13 +83,20 @@
     		<nav class="col-sm-2">History</nav>
     	</div>
     	<div class="row">
-    		<div class="jumbotron padded-div">
-    		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam quis feugiat lorem. Phasellus mollis, purus sed tristique posuere, est magna commodo sapien, ac aliquam turpis odio ac ipsum. Proin ultrices sapien id quam blandit, a semper ipsum efficitur. Curabitur non neque elementum, cursus metus quis, tincidunt risus. Integer vulputate a massa vitae lobortis. Phasellus sit amet lorem eget nunc posuere varius ac a felis. Duis a faucibus sem, non tincidunt lorem. Pellentesque nec ipsum justo.
-
+    		<div class="col-sm-9 col-sm-offset-3">
+    			<div class="jumbotron">
+    				<h2>Draft results are in!</h2>
+    				This year's roster information is now available on the "Roster" page.
+				</div>
+				<p class="black-bg">
+					This year is shaping up to be an exciting year for the River Sharks. Coming off a loss in
+					last year's Finals, owner and General Manager Jesse Deisinger continues is quest for 
+					the River Sharks' first FSL league championship.
+				</p>	
 			</div>
     	</div>
-    	<div class="row padded-div">
-    		<footer>Copyright Los Angeles River Sharks</footer>
+    	<div class="row">
+    		<footer>Copyright 2015 Los Angeles River Sharks</footer>
     	</div>
     </div>
 
