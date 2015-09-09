@@ -11,41 +11,21 @@
     <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<style>
-		.container {
-			background-color: black;
+		.container2 {
+			background-color: #EEEEEE;
 		}
 		nav {
-			color: #eeeeee;
-			font-size: 24px;
 			text-align: center;
 			vertical-align: middle;
-		}
-		.form-group {
-			padding-top: 5px;
-			padding-bottom: 5px;
-			width: 100%;
-		}
-		.form-inline {
-			float: left;
-		}
-		#search {
-			
-		}
-		button {
-			width: 40px;
-			height: 34px;
 		}
 		footer {
 			color: #AAAAAA;
 			text-align:center;
 		}
-		.padded-div {
-			margin: 5px 5px 5px 5px;
-		}
-		.black-bg {
+		.black-bg2 {
+			background-color: black;
 			color: #EEEEEE;
 		}
-		
 	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -56,31 +36,35 @@
     <![endif]-->
   </head>
   <body style="background-color:white">
-  	<div class="container">
-   		<div class="row" style="background-image: url(a_brown.jpg); background-size: cover">
-       		<div class="col-sm-3 col-xs-4">
-    			<img class="img-circle img-responsive" style="margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;" src="rs_logo.png">
+  	<div class="container img-rounded">
+   		<div class="row" style="padding: 15px;">
+       		<div class="col-sm-12 col-xs-12 img-rounded" style="background-image: url(a_brown.jpg); background-size: cover; padding-left: 0;">
+    			<img class="img-circle img-responsive col-sm-3 col-xs-4" style="padding: 5px;" src="rs_logo.png">
     		</div>
     	</div>
-    	<div class="row" style="background-color:black;">
-    		<div class="col-sm-3" style="padding-left: 5px; padding-right:5px;">
-    			<div class="row">
-    				<div class="col-sm-12">
-	    				<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search for...">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="button">
-									<span class="glyphicon glyphicon-search"></span>
-								</button>
-							</span>
-    					</div>
-    				</div>
+    	<div class="row black-bg">
+    		<div class="col-sm-3">
+	    		<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search for...">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</span>
     			</div>
        		</div>
-    		<nav class="col-sm-2">News</nav>
-    		<nav class="col-sm-2">Roster</nav>
-    		<nav class="col-sm-2">Schedule</nav>
-    		<nav class="col-sm-2">History</nav>
+       		<div class="col-sm-9">
+       			<nav class="navbar navbar-inverse">
+       				<div class="container-fluid">
+       					<ul class="nav navbar-nav">
+       						<li><a href="#">Home</a></li>
+       						<li><a href="#">News</a></li>
+       						<li><a href="#">Roster</a></li>
+       						<li><a href="#">Schedule</a></li>
+       					</ul>
+       				</div>
+       			</nav>
+       		</div>
     	</div>
     	<div class="row">
     		<div class="col-sm-9 col-sm-offset-3">
