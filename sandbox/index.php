@@ -91,12 +91,17 @@
           $(".progress-bar").animate({width: "75%"}, 0);
         
           var SomeName = function (){
-            intendedWidth = $(".progress-bar").width() * 0.75;
-            $(".progress-bar").animate({width: 0}, 2000);
-          }
+            $(".progress-bar").animate({width: MyObject.intendedWidth}, 2000);
+          };
+          
+          var MyObject = {
+            hello: "world",
+            intendedWidth: $(".progress-bar").width() * 0.75
+          };
           SomeName();
+          
           setTimeout( SomeName, 1000);
-        })()
+        })();
 
     </script>
     </div>
