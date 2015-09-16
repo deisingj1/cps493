@@ -87,7 +87,22 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script>
-        $(".progress-bar").animate({width: "75%"}, 6000)
+        (function() {
+          $(".progress-bar").animate({width: "75%"}, 0);
+        
+          var SomeName = function (){
+            $(".progress-bar").animate({width: MyObject.intendedWidth}, 2000);
+          };
+          
+          var MyObject = {
+            hello: "world",
+            intendedWidth: $(".progress-bar").width() * 0.75
+          };
+          SomeName();
+          
+          setTimeout( SomeName, 1000);
+        })();
+
     </script>
     </div>
   </body>
