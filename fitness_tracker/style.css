@@ -1,6 +1,19 @@
-header {
-	text-align: center;
+.container {
+	background-color: WHITE;
+}
+body {
+	background-color:WHITE;
 }
 footer {
 	text-align: center;
+}
+.nav-tabs {
+	border: 1px;
+}
+.dates > a > li:hover {
+	background-color: #DDDDDD;
+	font-style: normal;
+}
+.navbar-form {
+	border: 0px;
 }
