@@ -12,8 +12,8 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
+
 <body>
   	<div class="container">
    		<div class="row">
@@ -32,7 +32,7 @@
 						<a href="summary.html">Summary</a>
 					</li>
 					<li class="active">
-						<a href="#">Meals</a>
+						<a href="meals.html">Meals</a>
 					</li>
 					<li>
 						<a href="workouts.html">Workouts</a>
@@ -53,7 +53,7 @@
 						</div>
 					</form>
        				<form class="navbar-form navbar-left" role="records">
-						<button class="btn btn-default" type="button">
+						<button class="btn btn-default" type="button" id="addButton">
 							Add
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
@@ -61,6 +61,27 @@
        			</nav>
        		</div>
     	</div>
+    	<div class="row" id="addDropdown">
+    		<div class="col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-1 control-label" for="inputFood">Food:</label>
+								<div class="col-sm-5">
+									<input class="form-control" type:"text" id="inputFood" placeholder="Food eaten">
+								</div>
+								<label class="col-sm-1 control-label" for="inputFood">Food:</label>
+								<div class="col-sm-5">
+									<input class="form-control" type:"text" id="inputFood" placeholder="Food eaten">
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+	   	</div>
     	<div class="row">
     		<div class="col-sm-2">
     			<h5>
