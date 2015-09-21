@@ -20,5 +20,6 @@ footer {
 .nav-tabs {
 	
 }
-#addDropdown {
+#addDropdown button {
+	width: 150px;
 }

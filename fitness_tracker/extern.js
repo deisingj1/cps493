@@ -12,4 +12,16 @@ $(document).ready(function() {
 	$("#addButton").on('click', function() {
 		$("#addDropdown").slideDown(200);
 	});
+	//event handler for submit button
+	$("#addSubmit").on('click', function() {
+		$("#contentTable").append(
+			"<tr><td>" + $("#inputFood").val() + "</td>" +
+			"<td>" + $("#inputDate").val() + "</td>" +
+			"<td>" + $("#inputCalories").val() + "</td></tr>"
+		);
+		$("#inputFood").val('');
+		$("#inputDate").val('');
+		$("#inputCalories").val('');
+		return false;
+	});
 }); 
