@@ -10,6 +10,9 @@ footer {
 .nav-tabs {
 	border: 1px;
 }
+.date-nav {
+	padding-left: 30px;
+}
 .dates > a > li:hover {
 	background-color: #DDDDDD;
 	font-style: normal;
@@ -22,4 +25,9 @@ footer {
 }
 #addDropdown button {
 	width: 150px;
+}
+.user-loggedin {
+	line-height: 34px;
+	margin-top: 8px;
+	padding-left: 15px;
 }
