@@ -41,7 +41,7 @@
 						<a href="stats.html">Stats</a>
 					</li>
 				</ul>
-       			<nav class="navbar navbar-default">
+       			<nav class="navbar navbar-default top-menu">
 					<form class="navbar-form navbar-right" role="search">
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Search">
@@ -52,8 +52,8 @@
 							</span>
 						</div>
 					</form>
-       				<form class="navbar-form navbar-left" role="records">
-       					<a href="#">Hello, Travis Bickle (switch)</a>&nbsp;&nbsp;
+       				<form class="navbar-form navbar-left user-loggedin" role="records">
+       					Hello, Travis Bickle <a href="#">(switch)</a>&nbsp;&nbsp;
 						<button class="btn btn-default" type="button" id="addButton">
 							Add
 							<span class="glyphicon glyphicon-plus"></span>
@@ -72,13 +72,13 @@
 								<div class="col-sm-5">
 									<input class="form-control" type:"text" id="inputFood" placeholder="Food eaten">
 								</div>
-								<label class="col-sm-1 control-label" for="inputFood">Calories</label>
+								<label class="col-sm-1 control-label" for="inputFood">Calories:</label>
 								<div class="col-sm-2">
 									<input class="form-control" type:"text" id="inputCalories" placeholder="Calories">
 								</div>	
-								<label class="col-sm-1 control-label" for="inputFood">Date</label>
+								<label class="col-sm-1 control-label" for="inputFood">Date:</label>
 								<div class="col-sm-2">
-									<input class="form-control" type:"date" id="inputDate" placeholder="Date">
+									<input class="form-control" type:"date" id="inputDate" placeholder="MM/dd/yyyy">
 								</div>
 							</div>
 							<div class="form-group">
@@ -99,7 +99,7 @@
 			</div>
 	   	</div>
     	<div class="row">
-    		<div class="col-sm-2">
+    		<div class="col-sm-2 date-nav">
     			<h5>
     				View date:
     			</h5>
