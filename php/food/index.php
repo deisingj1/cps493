@@ -1,20 +1,29 @@
 <?php
-  $name = "Jesse Deisinger";
-  $message = "Welcome $name";
-  
-  $person = array( 'Name' => $name, 'Age' => 38, CalorieGoal => 2000);
-  
-  $food = array(
-    array('Name' => 'Breakfast', 'Time' => strtotime("-1 hour"), Calories => 400),
-    array('Name' => 'Lunch', 'Time' => strtotime("now"), Calories => 600),
-    array('Name' => 'Snack', 'Time' => strtotime("now + 1 hour"), Calories => 200),
-    array('Name' => 'Dinner', 'Time' => strtotime("6pm"), Calories => 1000),
-    );
+
+    session_start();
     
-    $total = 0; 
-    foreach( $food as $meal) {
-      $total += $meal['Calories'];
+    $name = 'Jesse';
+    $message = "Welcome $name";
+    
+    $person = array( 'Name' => $name, 'Age' => 38, CallorieGoal => 2000 );
+    
+    $food = $_SESSION['food'];
+    
+    if(!$food) {
+      $_SESSION['food'] = $food = array(
+        array( 'Name' => 'Breakfast', 'Time' => strtotime("-1 hour"), Callories => 400 ),
+        array( 'Name' => 'Lunch', 'Time' => strtotime("now"), Callories => 800 ),
+        array( 'Name' => 'Snack', 'Time' => strtotime("now + 1 hour"), Callories => 400 ),
+        array( 'Name' => 'Dinner', 'Time' => strtotime("6pm"), Callories => 400 ),
+      );
     }
+    
+    $total = 0;
+    foreach ($food as $meal) {
+        $total += $meal['Callories'];
+    }
+    
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,31 +32,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>PHP demo</title>
+    <title>Food Intake</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   </head>
   <body>
     <div class="container">
-            <h1>Food Intake!</h1>
+            <h1>Food Intake</h1>
             <h2><?=$message?></h2>
             <div class="panel panel-success">
-              <div class="panel-heading">
-                Your data:
-              </div>
-              <div class="panel-body">
-                <dl class="dl-horizontal">
-                  <dt>Name</dt>
-                  <dd><?=$person["Name"]?></dd>
-                  <dt>Age</dt>
-                  <dd><?=$person["Age"]?></dd>
-                  <dt>Calories</dt>
-                  <dd><?=$person["CalorieGoal"]?></dd>
-                  <dt>Today intake</dt>
-                  <dd><?=$total?></dd>
-                </dl>
-              </div>
+                <div class="panel-heading">Your Data</div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>Name</dt>
+                        <dd><?=$person['Name']?></dd>
+                        <dt>Age</dt>
+                        <dd><?=$person['Age']?></dd>
+                        <dt>Goal</dt>
+                        <dd><?=$person['CallorieGoal']?></dd>
+                        <dt>Today's Intake</dt>
+                        <dd><?=$total?></dd>
+                    </dl>
+                </div>
             </div>
       <div class="row">
         <div class="col-md-8 col-xs-10">
@@ -58,7 +65,7 @@
             <a href="#" class="btn btn-danger">
                 <i class="glyphicon glyphicon-trash"></i>
                 Delete All
-                <span class="badge">4</span>
+                <span class="badge"><?=count($food)?></span>
             </a>
             <table class="table table-condensed table-striped table-bordered table-hover">
               <thead>
@@ -66,26 +73,27 @@
                   <th>#</th>
                   <th>Name</th>
                   <th>Time</th>
-                  <th>Calories</th>
+                  <th>Callories</th>
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($food as $i => $meal) { ?>
+                <?php foreach($food as $i => $meal): ?>
                 <tr>
-                  <th scope="row"><?=$i+1?></th>
-                  <td><?=$meal["Name"]?></td>
-                  <td><?=$meal["Time"]?></td>
-                  <td><?=$meal["Calories"]?></td>
+                  <th scope="row">
+                    <div class="btn-group" role="group" aria-label="...">
+                      <button class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i></button>
+                      <a href="delete.php?id=<?=$i?>"><button class="btn btn-xs"><i class="glyphicon glyphicon-trash"></i></button></a>
+                      <button class="btn btn-xs"><i class="glyphicon glyphicon-pencil"></i></button>
+                    </div>
+                  </th>
+                  <td><?=$meal['Name']?></td>
+                  <td><?=date("M d, Y", strtotime($meal['Time']))?></td>
+                  <td><?=$meal['Callories']?></td>
                 </tr>
-                <?php } ?>
+                <?php endforeach; ?>
               </tbody>
             </table>  
           
-        </div>
-        <div class="col-md-4 col-xs-2">
-            <span class="label label-success">Success</span>
-            <span class="label label-info">Info</span>
-            <span class="label label-warning">Warning</span>
         </div>
         <div class="col-md-4 col-xs-10">
             <div class="alert alert-success" role="alert">
@@ -94,6 +102,7 @@
             <div class="alert alert-danger" role="alert">
                 Oh no! You messed up.
             </div>
+
         </div>
       </div>
       
@@ -102,8 +111,5 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-    
-    </script>
   </body>
 </html>
