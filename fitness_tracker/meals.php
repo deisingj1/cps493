@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php 
 	session_start();
+
 	$name = "Jesse Deisinger";
 	
 	$meals = $_SESSION['meals'];
@@ -12,6 +13,16 @@
 			array( 'meal' => 'Dinner', 'time' => strtotime("now + 2 hours"), 'calories' => 800), 
 		);
 	}
+	if($_GET['op'] == 2) {
+		unset($meals[$_GET['id']]);
+	}
+	if($_POST && $_POST['op'] == 1) {
+		$meals[$_GET['id']] = array( 'meal' => $_POST['meal'], 'time' => strtotime($_POST['time']), 'calories' => $_POST['calories']);
+	}
+	else if($_POST) {
+		$meals[] = array( 'meal' => $_POST['meal'], 'time' => strtotime($_POST['time']), 'calories' => $_POST['calories']);
+	}
+	$_SESSION['meals'] = $meals;
 
 ?>
 <head>
@@ -81,24 +92,24 @@
     		<div class="col-sm-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<form class="form-horizontal">
+						<form class="form-horizontal" method="post" action="meals.php">
 							<div class="form-group">
-								<label class="col-sm-1 control-label" for="inputFood">Food:</label>
+								<label class="col-sm-1 control-label" for="meal">Food:</label>
 								<div class="col-sm-5">
-									<input class="form-control" type:"text" id="inputFood" placeholder="Food eaten">
+									<input class="form-control" type:"text" name="meal" id="meal" placeholder="Food eaten">
 								</div>
-								<label class="col-sm-1 control-label" for="inputFood">Calories:</label>
+								<label class="col-sm-1 control-label" for="calories">Calories:</label>
 								<div class="col-sm-2">
-									<input class="form-control" type:"text" id="inputCalories" placeholder="Calories">
+									<input class="form-control" type:"text" name="calories" id="calories" placeholder="Calories">
 								</div>	
-								<label class="col-sm-1 control-label" for="inputFood">Date:</label>
+								<label class="col-sm-1 control-label" for="time">Date:</label>
 								<div class="col-sm-2">
-									<input class="form-control" type:"date" id="inputDate" placeholder="MM/dd/yyyy">
+									<input class="form-control" type:"date" name="time" id="time" placeholder="MM/dd/yyyy">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12 text-right">
-									<button id="addSubmit" class="btn btn-success">
+									<button>
 										Submit
 										<span class="glyphicon glyphicon-plus"></span>
 									</button>
