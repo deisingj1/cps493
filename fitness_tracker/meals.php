@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <?php 
+	session_start();
 	$name = "Jesse Deisinger";
+	
+	$meals = $_SESSION['meals'];
+	
+	if(!$meals) {
+		$_SESSION['meals'] = $meals = array(
+			array( 'meal' => 'Breakfast', 'time' => strtotime("now"), 'calories' => 700), 
+			array( 'meal' => 'Lunch', 'time' => strtotime("now + 1 hour"), 'calories' => 600), 
+			array( 'meal' => 'Dinner', 'time' => strtotime("now + 2 hours"), 'calories' => 800), 
+		);
+	}
 
 ?>
 <head>
@@ -108,33 +119,38 @@
     				View date:
     			</h5>
     			<ul class="dates">
-    				<a href="#"><li>9/17/15</li></a>
+    				<?php foreach($meals as $i => $meal): ?>
+    					<a href="#"><li><?=date("M d Y", $meal['time'])?></li></a>
+    				<?php endforeach;?>
     			</ul>
     		</div>
     		<div class="col-sm-10">
 				<div class="table-responsive">
-					<table id="contentTable" class="table table-hover table-bordered">
-						<tr>
-							<th>Food</th>
-							<th>Date</th>
-							<th>Calories</th>
-						</tr>
-						<tr>
-							<td>beans</td>
-							<td>breakfast</td>
-							<td>3.14159</td>
-						</tr>
-						<tr>
-							<td>meats</td>
-							<td>lunch</td>
-							<td>340</td>
-						</tr>
-						<tr>
-							<td>pasta</td>
-							<td>dinner</td>
-							<td>810</td>
-						</tr>
-					</table>
+		            <table class="table table-striped table-bordered">
+		              <thead>
+		                <tr>
+		                  <th>Action</th>
+		                  <th>Meal</th>
+		                  <th>Time</th>
+		                  <th>Calories</th>
+		                </tr>
+		              </thead>
+		              <tbody>
+		                <?php foreach($meals as $i => $meal): ?>
+		                <tr>
+		                  <th scope="row">
+		                    <div class="btn-group" role="group">
+		                      <a href="meals.php?id=<?=$i?>&op=1" title="Edit" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i></a>
+		                      <a href="meals.php?id=<?=$i?>&op=2" title="Delete" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
+		                    </div>
+		                  </th>
+		                  <td><?=$meal['meal']?></td>
+		                  <td><?=date("M d Y  h:i:sa", $meal['time'])?></td>
+		                  <td><?=$meal['calories']?></td>
+		                </tr>
+		                <?php endforeach; ?>
+		              </tbody>
+		            </table>  
 				</div>
 			</div>
     	</div>

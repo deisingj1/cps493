@@ -13,7 +13,7 @@ $(document).ready(function() {
 		$("#addDropdown").slideDown(200);
 	});
 	//event handler for submit button
-	$("#addSubmit").on('click', function() {
+	$("#nothingSubmit").on('click', function() {
 		$("#contentTable").append(
 			"<tr><td>" + $("#inputFood").val() + "</td>" +
 			"<td>" + $("#inputDate").val() + "</td>" +
