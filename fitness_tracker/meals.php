@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php 
+	$name = "Jesse Deisinger";
+
+?>
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,16 +33,16 @@
        		<div class="col-sm-12">
 				<ul class="nav nav-tabs nav-justified">
 					<li>
-						<a href="summary.html">Summary</a>
-					</li>
-					<li>
-						<a href="meals.html">Meals</a>
+						<a href="summary.php">Summary</a>
 					</li>
 					<li class="active">
-						<a href="workouts.html">Workouts</a>
+						<a href="meals.php">Meals</a>
 					</li>
 					<li>
-						<a href="stats.html">Stats</a>
+						<a href="workouts.php">Workouts</a>
+					</li>
+					<li>
+						<a href="stats.php">Stats</a>
 					</li>
 				</ul>
        			<nav class="navbar navbar-default top-menu">
@@ -53,7 +57,7 @@
 						</div>
 					</form>
        				<form class="navbar-form navbar-left user-loggedin" role="records">
-       					Hello, Travis Bickle <a href="#">(switch)</a>&nbsp;&nbsp;
+       					Hello, <?=$name?> <a href="#">(switch)</a>&nbsp;&nbsp;
 						<button class="btn btn-default" type="button" id="addButton">
 							Add
 							<span class="glyphicon glyphicon-plus"></span>
@@ -68,17 +72,17 @@
 					<div class="panel-body">
 						<form class="form-horizontal">
 							<div class="form-group">
-								<label class="col-sm-1 control-label" for="inputFood">Type of workout</label>
+								<label class="col-sm-1 control-label" for="inputFood">Food:</label>
 								<div class="col-sm-5">
-									<input class="form-control" type:"text" id="inputFood" placeholder="Workout">
+									<input class="form-control" type:"text" id="inputFood" placeholder="Food eaten">
 								</div>
-								<label class="col-sm-1 control-label" for="inputCalories">Calories Burned</label>
+								<label class="col-sm-1 control-label" for="inputFood">Calories:</label>
 								<div class="col-sm-2">
 									<input class="form-control" type:"text" id="inputCalories" placeholder="Calories">
 								</div>	
-								<label class="col-sm-1 control-label" for="inputDate">Date</label>
+								<label class="col-sm-1 control-label" for="inputFood">Date:</label>
 								<div class="col-sm-2">
-									<input class="form-control" type:"date" id="inputDate" placeholder="Date">
+									<input class="form-control" type:"date" id="inputDate" placeholder="MM/dd/yyyy">
 								</div>
 							</div>
 							<div class="form-group">
@@ -111,23 +115,23 @@
 				<div class="table-responsive">
 					<table id="contentTable" class="table table-hover table-bordered">
 						<tr>
-							<th>Workout</th>
+							<th>Food</th>
 							<th>Date</th>
 							<th>Calories</th>
 						</tr>
 						<tr>
-							<td>Run</td>
-							<td>12/17/12</td>
-							<td>130</td>
+							<td>beans</td>
+							<td>breakfast</td>
+							<td>3.14159</td>
 						</tr>
 						<tr>
-							<td>Walk</td>
-							<td>01/41/32</td>
-							<td>410</td>
+							<td>meats</td>
+							<td>lunch</td>
+							<td>340</td>
 						</tr>
 						<tr>
-							<td>Row</td>
-							<td>4/13/14</td>
+							<td>pasta</td>
+							<td>dinner</td>
 							<td>810</td>
 						</tr>
 					</table>

@@ -29,16 +29,16 @@
        		<div class="col-sm-12">
 				<ul class="nav nav-tabs nav-justified">
 					<li>
-						<a href="summary.html">Summary</a>
+						<a href="summary.php">Summary</a>
 					</li>
 					<li>
-						<a href="meals.html">Meals</a>
+						<a href="meals.php">Meals</a>
 					</li>
 					<li>
-						<a href="workouts.html">Workouts</a>
+						<a href="workouts.php">Workouts</a>
 					</li>
 					<li class="active">
-						<a href="stats.html">Stats</a>
+						<a href="stats.php">Stats</a>
 					</li>
 				</ul>
        			<nav class="navbar navbar-default top-menu">

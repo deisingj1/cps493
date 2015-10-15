@@ -29,16 +29,16 @@
        		<div class="col-sm-12">
 				<ul class="nav nav-tabs nav-justified">
 					<li>
-						<a href="summary.html">Summary</a>
+						<a href="summary.php">Summary</a>
+					</li>
+					<li>
+						<a href="meals.php">Meals</a>
 					</li>
 					<li class="active">
-						<a href="meals.html">Meals</a>
+						<a href="workouts.php">Workouts</a>
 					</li>
 					<li>
-						<a href="workouts.html">Workouts</a>
-					</li>
-					<li>
-						<a href="stats.html">Stats</a>
+						<a href="stats.php">Stats</a>
 					</li>
 				</ul>
        			<nav class="navbar navbar-default top-menu">
@@ -68,17 +68,17 @@
 					<div class="panel-body">
 						<form class="form-horizontal">
 							<div class="form-group">
-								<label class="col-sm-1 control-label" for="inputFood">Food:</label>
+								<label class="col-sm-1 control-label" for="inputFood">Type of workout</label>
 								<div class="col-sm-5">
-									<input class="form-control" type:"text" id="inputFood" placeholder="Food eaten">
+									<input class="form-control" type:"text" id="inputFood" placeholder="Workout">
 								</div>
-								<label class="col-sm-1 control-label" for="inputFood">Calories:</label>
+								<label class="col-sm-1 control-label" for="inputCalories">Calories Burned</label>
 								<div class="col-sm-2">
 									<input class="form-control" type:"text" id="inputCalories" placeholder="Calories">
 								</div>	
-								<label class="col-sm-1 control-label" for="inputFood">Date:</label>
+								<label class="col-sm-1 control-label" for="inputDate">Date</label>
 								<div class="col-sm-2">
-									<input class="form-control" type:"date" id="inputDate" placeholder="MM/dd/yyyy">
+									<input class="form-control" type:"date" id="inputDate" placeholder="Date">
 								</div>
 							</div>
 							<div class="form-group">
@@ -111,23 +111,23 @@
 				<div class="table-responsive">
 					<table id="contentTable" class="table table-hover table-bordered">
 						<tr>
-							<th>Food</th>
+							<th>Workout</th>
 							<th>Date</th>
 							<th>Calories</th>
 						</tr>
 						<tr>
-							<td>beans</td>
-							<td>breakfast</td>
-							<td>3.14159</td>
+							<td>Run</td>
+							<td>12/17/12</td>
+							<td>130</td>
 						</tr>
 						<tr>
-							<td>meats</td>
-							<td>lunch</td>
-							<td>340</td>
+							<td>Walk</td>
+							<td>01/41/32</td>
+							<td>410</td>
 						</tr>
 						<tr>
-							<td>pasta</td>
-							<td>dinner</td>
+							<td>Row</td>
+							<td>4/13/14</td>
 							<td>810</td>
 						</tr>
 					</table>
