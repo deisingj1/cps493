@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php 
 	session_start();
-
+	var_dump($_POST['id']);
 	$name = "Jesse Deisinger";
 	
 	$meals = $_SESSION['meals'];
@@ -16,10 +16,7 @@
 	if($_GET['op'] == 2) {
 		unset($meals[$_GET['id']]);
 	}
-	if($_POST && $_POST['op'] == 1) {
-		$meals[$_GET['id']] = array( 'meal' => $_POST['meal'], 'time' => strtotime($_POST['time']), 'calories' => $_POST['calories']);
-	}
-	else if($_POST) {
+	if($_POST) {
 		$meals[] = array( 'meal' => $_POST['meal'], 'time' => strtotime($_POST['time']), 'calories' => $_POST['calories']);
 	}
 	$_SESSION['meals'] = $meals;
@@ -108,15 +105,19 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<input type="hidden" id="edit-id" name="id" value="-1">
+								<input type="hidden" id="edit-op" name="op" value="-1">
 								<div class="col-sm-12 text-right">
-									<button>
+									<button class="btn btn-success">
 										Submit
 										<span class="glyphicon glyphicon-plus"></span>
 									</button>
+									<!--
 									<button class="btn btn-danger">
 										Cancel
 										<span class="glyphicon glyphicon-trash"></span>	
 									</button>
+									-->
 								</div>
 							</div>
 						</form>
@@ -148,10 +149,10 @@
 		              </thead>
 		              <tbody>
 		                <?php foreach($meals as $i => $meal): ?>
-		                <tr>
+		                <tr id="data-row-<?=$i?>">
 		                  <th scope="row">
 		                    <div class="btn-group" role="group">
-		                      <a href="meals.php?id=<?=$i?>&op=1" title="Edit" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i></a>
+		                      <a data-index="<?=$i?>" title="Edit" type="button" class="btn btn-default btn-xs edit" onclick="return false;"><i class="glyphicon glyphicon-edit"></i></a>
 		                      <a href="meals.php?id=<?=$i?>&op=2" title="Delete" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
 		                    </div>
 		                  </th>
@@ -173,4 +174,15 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="extern.js"></script>
+	<script>
+		$(document).ready(function() {
+			$(".edit").click( function() {
+				$("#edit-id").attr("value", $(this).attr("data-index"));
+				$("#edit-op").attr("value", 1);
+				console.log($("#edit-id").attr("value"));
+				console.log($("#edit-op").attr("value"));
+			});
+		});
+		
+	</script>
 </body>
