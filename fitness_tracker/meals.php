@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <?php 
 	session_start();
-	var_dump($_POST['id']);
+
 	$name = "Jesse Deisinger";
 	
 	$meals = $_SESSION['meals'];
-	
+	$op = $_POST['op'];
+	$id = $_POST['id'];
+	var_dump(intval($id));
 	if(!$meals) {
 		$_SESSION['meals'] = $meals = array(
 			array( 'meal' => 'Breakfast', 'time' => strtotime("now"), 'calories' => 700), 
@@ -17,7 +19,12 @@
 		unset($meals[$_GET['id']]);
 	}
 	if($_POST) {
-		$meals[] = array( 'meal' => $_POST['meal'], 'time' => strtotime($_POST['time']), 'calories' => $_POST['calories']);
+		if($op == 3) {
+			$meals[intval($id)] = array( 'meal' => $_POST['meal'], 'time' => strtotime($_POST['time']), 'calories' => $_POST['calories']);
+		}
+		else {
+			$meals[] = array( 'meal' => $_POST['meal'], 'time' => strtotime($_POST['time']), 'calories' => $_POST['calories']);
+		}
 	}
 	$_SESSION['meals'] = $meals;
 
@@ -105,8 +112,6 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<input type="hidden" id="edit-id" name="id" value="-1">
-								<input type="hidden" id="edit-op" name="op" value="-1">
 								<div class="col-sm-12 text-right">
 									<button class="btn btn-success">
 										Submit
@@ -152,7 +157,7 @@
 		                <tr id="data-row-<?=$i?>">
 		                  <th scope="row">
 		                    <div class="btn-group" role="group">
-		                      <a data-index="<?=$i?>" title="Edit" type="button" class="btn btn-default btn-xs edit" onclick="return false;"><i class="glyphicon glyphicon-edit"></i></a>
+		                      <a href="edit_meal.php?id=<?=$i?>" title="Edit" type="button" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
 		                      <a href="meals.php?id=<?=$i?>&op=2" title="Delete" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
 		                    </div>
 		                  </th>
@@ -174,15 +179,4 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="extern.js"></script>
-	<script>
-		$(document).ready(function() {
-			$(".edit").click( function() {
-				$("#edit-id").attr("value", $(this).attr("data-index"));
-				$("#edit-op").attr("value", 1);
-				console.log($("#edit-id").attr("value"));
-				console.log($("#edit-op").attr("value"));
-			});
-		});
-		
-	</script>
 </body>

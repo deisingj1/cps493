@@ -1,4 +1,34 @@
 <!DOCTYPE html>
+<?php 
+	session_start();
+
+	$name = "Jesse Deisinger";
+	
+	$workouts = $_SESSION['workouts'];
+	$op = $_POST['op'];
+	$id = $_POST['id'];
+	var_dump(intval($id));
+	if(!$workouts) {
+		$_SESSION['workouts'] = $workouts = array(
+			array( 'workout' => "Running", 'time' => strtotime("now"), 'calories' => 123), 
+			array( 'workout' => "Walking", 'time' => strtotime("now + 1 hour"), 'calories' => 321), 
+			array( 'workout' => "Rowing", 'time' => strtotime("now + 2 hours"), 'calories' => 111), 
+		);
+	}
+	if($_GET['op'] == 2) {
+		unset($workouts[$_GET['id']]);
+	}
+	if($_POST) {
+		if($op == 3) {
+			$workouts[intval($id)] = array( 'workout' => $_POST['workout'], 'time' => strtotime($_POST['time']), 'calories' => $_POST['calories']);
+		}
+		else {
+			$workouts[] = array( 'workout' => $_POST['workout'], 'time' => strtotime($_POST['time']), 'calories' => $_POST['calories']);
+		}
+	}
+	$_SESSION['workouts'] = $workouts;
+
+?>
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,7 +83,7 @@
 						</div>
 					</form>
        				<form class="navbar-form navbar-left user-loggedin" role="records">
-       					Hello, Travis Bickle <a href="#">(switch)</a>&nbsp;&nbsp;
+       					Hello, <?=$name?> <a href="#">(switch)</a>&nbsp;&nbsp;
 						<button class="btn btn-default" type="button" id="addButton">
 							Add
 							<span class="glyphicon glyphicon-plus"></span>
@@ -66,31 +96,33 @@
     		<div class="col-sm-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<form class="form-horizontal">
+						<form class="form-horizontal" method="post" action="workouts.php">
 							<div class="form-group">
-								<label class="col-sm-1 control-label" for="inputFood">Type of workout</label>
+								<label class="col-sm-1 control-label" for="workout">Food:</label>
 								<div class="col-sm-5">
-									<input class="form-control" type:"text" id="inputFood" placeholder="Workout">
+									<input class="form-control" type:"text" name="workout" id="workout" placeholder="Workout">
 								</div>
-								<label class="col-sm-1 control-label" for="inputCalories">Calories Burned</label>
+								<label class="col-sm-1 control-label" for="calories">Calories:</label>
 								<div class="col-sm-2">
-									<input class="form-control" type:"text" id="inputCalories" placeholder="Calories">
+									<input class="form-control" type:"text" name="calories" id="calories" placeholder="Calories">
 								</div>	
-								<label class="col-sm-1 control-label" for="inputDate">Date</label>
+								<label class="col-sm-1 control-label" for="time">Date:</label>
 								<div class="col-sm-2">
-									<input class="form-control" type:"date" id="inputDate" placeholder="Date">
+									<input class="form-control" type:"date" name="time" id="time" placeholder="MM/dd/yyyy">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12 text-right">
-									<button id="addSubmit" class="btn btn-success">
+									<button class="btn btn-success">
 										Submit
 										<span class="glyphicon glyphicon-plus"></span>
 									</button>
+									<!--
 									<button class="btn btn-danger">
 										Cancel
 										<span class="glyphicon glyphicon-trash"></span>	
 									</button>
+									-->
 								</div>
 							</div>
 						</form>
@@ -104,33 +136,38 @@
     				View date:
     			</h5>
     			<ul class="dates">
-    				<a href="#"><li>9/17/15</li></a>
+    				<?php foreach($workouts as $i => $workout): ?>
+    					<a href="#"><li><?=date("M d Y", $workout['time'])?></li></a>
+    				<?php endforeach;?>
     			</ul>
     		</div>
     		<div class="col-sm-10">
 				<div class="table-responsive">
-					<table id="contentTable" class="table table-hover table-bordered">
-						<tr>
-							<th>Workout</th>
-							<th>Date</th>
-							<th>Calories</th>
-						</tr>
-						<tr>
-							<td>Run</td>
-							<td>12/17/12</td>
-							<td>130</td>
-						</tr>
-						<tr>
-							<td>Walk</td>
-							<td>01/41/32</td>
-							<td>410</td>
-						</tr>
-						<tr>
-							<td>Row</td>
-							<td>4/13/14</td>
-							<td>810</td>
-						</tr>
-					</table>
+		            <table class="table table-striped table-bordered">
+		              <thead>
+		                <tr>
+		                  <th>Action</th>
+		                  <th>Workout</th>
+		                  <th>Time</th>
+		                  <th>Calories</th>
+		                </tr>
+		              </thead>
+		              <tbody>
+		                <?php foreach($workouts as $i => $workout): ?>
+		                <tr id="data-row-<?=$i?>">
+		                  <th scope="row">
+		                    <div class="btn-group" role="group">
+		                      <a href="edit_workout.php?id=<?=$i?>" title="Edit" type="button" class="btn btn-default btn-xs edit"><i class="glyphicon glyphicon-edit"></i></a>
+		                      <a href="workouts.php?id=<?=$i?>&op=2" title="Delete" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
+		                    </div>
+		                  </th>
+		                  <td><?=$workout['workout']?></td>
+		                  <td><?=date("M d Y  h:i:sa", $workout['time'])?></td>
+		                  <td><?=$workout['calories']?></td>
+		                </tr>
+		                <?php endforeach; ?>
+		              </tbody>
+		            </table>  
 				</div>
 			</div>
     	</div>
