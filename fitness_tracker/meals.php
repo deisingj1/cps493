@@ -7,7 +7,6 @@
 	$meals = $_SESSION['meals'];
 	$op = $_POST['op'];
 	$id = $_POST['id'];
-	var_dump(intval($id));
 	if(!$meals) {
 		$_SESSION['meals'] = $meals = array(
 			array( 'meal' => 'Breakfast', 'time' => strtotime("now"), 'calories' => 700), 

@@ -7,7 +7,6 @@
 	$workouts = $_SESSION['workouts'];
 	$op = $_POST['op'];
 	$id = $_POST['id'];
-	var_dump(intval($id));
 	if(!$workouts) {
 		$_SESSION['workouts'] = $workouts = array(
 			array( 'workout' => "Running", 'time' => strtotime("now"), 'calories' => 123), 
@@ -98,11 +97,11 @@
 					<div class="panel-body">
 						<form class="form-horizontal" method="post" action="workouts.php">
 							<div class="form-group">
-								<label class="col-sm-1 control-label" for="workout">Food:</label>
+								<label class="col-sm-1 control-label" for="workout">Workout: </label>
 								<div class="col-sm-5">
 									<input class="form-control" type:"text" name="workout" id="workout" placeholder="Workout">
 								</div>
-								<label class="col-sm-1 control-label" for="calories">Calories:</label>
+								<label class="col-sm-1 control-label" for="calories">Calories Burned:</label>
 								<div class="col-sm-2">
 									<input class="form-control" type:"text" name="calories" id="calories" placeholder="Calories">
 								</div>	
