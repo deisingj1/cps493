@@ -41,10 +41,10 @@
 					<li>
 						<a href="summary.php">Summary</a>
 					</li>
-					<li class="active">
+					<li>
 						<a href="meals.php">Meals</a>
 					</li>
-					<li>
+					<li class="active">
 						<a href="workouts.php">Workouts</a>
 					</li>
 					<li>
@@ -76,7 +76,7 @@
     		<div class="col-sm-10">
 				<form class="form-horizontal" method="post" action="workouts.php">
 					<div class="form-group">
-						<label class="col-sm-1 control-label" for="workout">Food:</label>
+						<label class="col-sm-1 control-label" for="workout">Workout:</label>
 						<div class="col-sm-5">
 							<input class="form-control" type:"text" name="workout" id="workout" value="<?=$workout['workout']?>">
 						</div>
