@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<?php 
+	session_start();
+	$name = "Jesse Deisinger";
+	
+	$workout = $_SESSION['workouts'][$_GET['id']];
+	
+	$id = $_GET['id'];
+	var_dump($id);
+
+?>
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,22 +33,22 @@
 		   				Fitness Tracker.biz
 		   			</h1>
 		   		</header>
-		   	</div>
+		   		</div>
     	</div>
     	<div class="row">
        		<div class="col-sm-12">
 				<ul class="nav nav-tabs nav-justified">
+					<li>
+						<a href="summary.php">Summary</a>
+					</li>
+					<li>
+						<a href="meals.php">Meals</a>
+					</li>
 					<li class="active">
-						<a href="summary.html">Summary</a>
+						<a href="workouts.php">Workouts</a>
 					</li>
 					<li>
-						<a href="meals.html">Meals</a>
-					</li>
-					<li>
-						<a href="workouts.html">Workouts</a>
-					</li>
-					<li>
-						<a href="stats.html">Stats</a>
+						<a href="stats.php">Stats</a>
 					</li>
 				</ul>
        			<nav class="navbar navbar-default top-menu">
@@ -53,24 +63,49 @@
 						</div>
 					</form>
        				<form class="navbar-form navbar-left user-loggedin" role="records">
-       					Hello, Travis Bickle <a href="#">(switch)</a>
-       				</form>
+       					Hello, <?=$name?> <a href="#">(switch)</a>&nbsp;&nbsp;
+					</form>
        			</nav>
        		</div>
-    	</div>    	
+    	</div>
+
     	<div class="row">
     		<div class="col-sm-2 date-nav">
-                <h5> View date: </h5>
-    			<ul class="dates">
-    				<a href="#"><li>9/17/15</li></a>
-    				<a href="#"><li>9/17/15</li></a>
-    				<a href="#"><li>9/17/15</li></a>
-    				<a href="#"><li>9/17/15</li></a>
-    			</ul>
+
     		</div>
     		<div class="col-sm-10">
-				<h5> Today: 1 Workout, 300 calories, 3 Meals, 1400 Calories </h5>
-				<h5> This week: 4 Workouts, 1400 calories, 7 Meals, 4000 calories</h5>
+				<form class="form-horizontal" method="post" action="workouts.php">
+					<div class="form-group">
+						<label class="col-sm-1 control-label" for="workout">Workout:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type:"text" name="workout" id="workout" value="<?=$workout['workout']?>">
+						</div>
+						<label class="col-sm-1 control-label" for="calories">Calories:</label>
+						<div class="col-sm-2">
+							<input class="form-control" type:"text" name="calories" id="calories" value="<?=$workout['calories']?>">
+						</div>	
+						<label class="col-sm-1 control-label" for="time">Date:</label>
+						<div class="col-sm-2">
+							<input class="form-control" type:"date" name="time" id="time" value="<?=$workout['time']?>">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12 text-right">
+							<input class="hidden" name="op" value="3">
+							<input class="hidden" name="id" value="<?=$id?>">
+							<button class="btn btn-success" method="post" action="workouts.php?id=<?=$id?>">
+								Submit
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+							<!--
+							<button class="btn btn-danger">
+								Cancel
+								<span class="glyphicon glyphicon-trash"></span>	
+							</button>
+							-->
+						</div>
+					</div>
+				</form>
 			</div>
     	</div>
     	<div class="row">

@@ -23,22 +23,22 @@
 		   				Fitness Tracker.biz
 		   			</h1>
 		   		</header>
-		   		</div>
+		   	</div>
     	</div>
     	<div class="row">
        		<div class="col-sm-12">
 				<ul class="nav nav-tabs nav-justified">
-					<li>
-						<a href="summary.html">Summary</a>
-					</li>
-					<li>
-						<a href="meals.html">Meals</a>
-					</li>
-					<li>
-						<a href="workouts.html">Workouts</a>
-					</li>
 					<li class="active">
-						<a href="stats.html">Stats</a>
+						<a href="summary.php">Summary</a>
+					</li>
+					<li>
+						<a href="meals.php">Meals</a>
+					</li>
+					<li>
+						<a href="workouts.php">Workouts</a>
+					</li>
+					<li>
+						<a href="stats.php">Stats</a>
 					</li>
 				</ul>
        			<nav class="navbar navbar-default top-menu">
@@ -53,21 +53,24 @@
 						</div>
 					</form>
        				<form class="navbar-form navbar-left user-loggedin" role="records">
-       					Hello, Travis Bickle <a href="#">(switch)</a>&nbsp;&nbsp;
-					</form>
+       					Hello, Travis Bickle <a href="#">(switch)</a>
+       				</form>
        			</nav>
        		</div>
-    	</div>
-
+    	</div>    	
     	<div class="row">
     		<div class="col-sm-2 date-nav">
                 <h5> View date: </h5>
     			<ul class="dates">
     				<a href="#"><li>9/17/15</li></a>
+    				<a href="#"><li>9/17/15</li></a>
+    				<a href="#"><li>9/17/15</li></a>
+    				<a href="#"><li>9/17/15</li></a>
     			</ul>
     		</div>
     		<div class="col-sm-10">
-				Stats page
+				<h5> Today: 1 Workout, 300 calories, 3 Meals, 1400 Calories </h5>
+				<h5> This week: 4 Workouts, 1400 calories, 7 Meals, 4000 calories</h5>
 			</div>
     	</div>
     	<div class="row">
