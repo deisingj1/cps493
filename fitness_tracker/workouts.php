@@ -2,7 +2,8 @@
 <?php 
 	session_start();
 
-	$name = "Jesse Deisinger";
+	$conn = getConnection();
+	$name = getUserName();
 	
 	$workouts = $_SESSION['workouts'];
 	$op = $_POST['op'];

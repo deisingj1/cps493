@@ -1,26 +1,11 @@
 <!DOCTYPE html>
 <!--SELECT name FROM `users` WHERE login_name = 'jesse'-->
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "mydb";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-?>
 <?php 
 	session_start();
 
-	$sql = "SELECT name FROM `users` WHERE login_name = 'jesse'";
-	$result = mysqli_query($conn, $sql);
-	$user = mysqli_fetch_assoc($result);
-	$name = $user["name"];
+	$conn = getConnection();
+	$name = getUserName();
 	
 	$meals = $_SESSION['meals'];
 	$op = $_POST['op'];

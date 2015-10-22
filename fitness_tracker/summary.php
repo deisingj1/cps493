@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+	$conn = getConnection();
+	$name = getUserName();
+?>
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,7 +57,7 @@
 						</div>
 					</form>
        				<form class="navbar-form navbar-left user-loggedin" role="records">
-       					Hello, Travis Bickle <a href="#">(switch)</a>
+       					Hello, <?=$name?> <a href="#">(switch)</a>
        				</form>
        			</nav>
        		</div>
