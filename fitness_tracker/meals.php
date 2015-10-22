@@ -19,7 +19,9 @@ echo "Connected successfully";
 
 	$sql = "SELECT name FROM `users` WHERE login_name = 'jesse'";
 	$result = mysqli_query($conn, $sql);
+	var_dump($result);
 	$name = $result;
+	var_dump($name);
 	
 	$meals = $_SESSION['meals'];
 	$op = $_POST['op'];
