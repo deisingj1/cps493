@@ -13,16 +13,14 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-echo "Connected successfully";
 ?>
 <?php 
 	session_start();
 
 	$sql = "SELECT name FROM `users` WHERE login_name = 'jesse'";
 	$result = mysqli_query($conn, $sql);
-	var_dump($result);
-	$name = $result;
-	var_dump($name);
+	$user = mysqli_fetch_assoc($result);
+	$name = $user["name"];
 	
 	$meals = $_SESSION['meals'];
 	$op = $_POST['op'];
