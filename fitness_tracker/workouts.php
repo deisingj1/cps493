@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <?php 
 	session_start();
-
+	include "inc/global.php";
 	$conn = getConnection();
-	$name = getUserName();
+	$name = getUserName($conn);
 	
 	$workouts = $_SESSION['workouts'];
 	$op = $_POST['op'];

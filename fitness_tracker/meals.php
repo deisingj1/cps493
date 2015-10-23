@@ -3,9 +3,10 @@
 
 <?php 
 	session_start();
-
+	
+	include "inc/global.php";
 	$conn = getConnection();
-	$name = getUserName();
+	$name = getUserName($conn);
 	
 	$meals = $_SESSION['meals'];
 	$op = $_POST['op'];

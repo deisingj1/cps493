@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <?php
+	include "inc/global.php";
 	$conn = getConnection();
-	$name = getUserName();
+	$name = getUserName($conn);
 ?>
 <head>
 	<meta charset="utf-8">
