@@ -1,5 +1,5 @@
 <?php 
-	include_once '../Models/meal.php
+	include_once '../Models/meal.php';
 
 	$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
 	$method = $_SERVER['REQUEST_METHOD'];
@@ -38,13 +38,13 @@
 			break;
 		case 'delete_GET':
 			$model = Meal::Get($_REQUEST['id']);
-			$view = "meals/delete.php;
+			$view = "meals/delete.php";
 			break;
 		case 'delete_POST':
 			$errors = Meal::Delete($_REQUEST['id']);
 			if($errors) {
 				$model = Person::Get($_REQUEST['id']);
-				$view = "meals/delete.php"
+				$view = "meals/delete.php";
 			}
 			else {
 				header("Location: ?sub_action=$sub_action&id=$_REQUEST[id]");
@@ -52,6 +52,7 @@
 			}
 			break;
 		case 'search_GET':
+			echo "search get";
 			$model = Meal::Search($_REQUEST['q']);
 			$view = 'meals/index.php';
 			break;

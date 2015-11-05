@@ -15,6 +15,26 @@ function getConnection() {
 	}
 	return $conn; 
 }
+
+function fetchAll($sql) {
+	$ret = array();
+	$conn = getConnection();
+	$results = $conn->query($sql);
+
+	$error = $conn->error;
+	if($error) {
+		echo $error;
+	}
+	else {
+		while($rs = $results->fetch_assoc()) {
+			$ret[] = $rs;
+		}
+	}
+	$conn->close();
+
+	return $ret;
+}
+
 function getUserName($connection){
 	$sql = "SELECT name FROM `users` WHERE login_name = 'jesse'";
 	$result = mysqli_query($connection, $sql);
