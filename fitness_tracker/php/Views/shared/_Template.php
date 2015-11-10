@@ -59,8 +59,8 @@
 						</button>
 					</form>
        			</nav>
-       		</div>
-    		<?php include __DIR__ . "/../Views/$view"; ?>
+       		    		<?php include __DIR__ . "/../$view"; ?>
+		</div>
 	</div>
 		<!-- Javascript -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

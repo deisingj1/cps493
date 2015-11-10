@@ -2,7 +2,7 @@
 require_once "../inc/global.php";
 class Meal {
 	public static function Get($id = null){
-	$sql = "SELECT * FROM `meals`";
+	$sql = "SELECT * FROM `FT_meals`";
 	if($id){
 		$sql .= " WHERE id=$id ";
 		$ret = fetchAll($sql);
@@ -18,7 +18,7 @@ static public function Delete($id)
 {
 	echo "Save function";
 	$conn = getConnection();
-	$sql = "DELETE FROM 2015Fall_Persons WHERE id = $id";
+	$sql = "DELETE FROM FT_meals WHERE id = $id";
 	echo $sql;
 	$results = $conn->query($sql);
 	$error = $conn->error;
