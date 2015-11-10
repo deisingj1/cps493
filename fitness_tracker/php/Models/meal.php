@@ -5,11 +5,11 @@ class Meal {
 	$sql = "SELECT * FROM `meals`";
 	if($id){
 		$sql .= " WHERE id=$id ";
-		$ret = FetchAll($sql);
+		$ret = fetchAll($sql);
 		return $ret[0];
 	}	
 	else {
-		return FetchAll($sql);
+		return fetchAll($sql);
 	}
 
 }
