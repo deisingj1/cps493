@@ -11,7 +11,7 @@
 			$model = Meal::Blank();
 			$view = "meals/edit.php";
 			break;
-		case 'edit_POST':
+		case 'save_POST':
 			//$sub_action = empty($_REQUEST['id']) ? 'created' : 'updated';
 			//$errors = Meal::Validate($_REQUEST);
 			if(!$errors) {

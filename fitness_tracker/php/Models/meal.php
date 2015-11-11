@@ -14,13 +14,19 @@ class Meal {
 	}
         
 	static public function Save($id) {
-		var_dump($id);
 		$conn = getConnection();
-		$sql = "UPDATE `FT_meals` SET 
-			meal=\"" . $id['meal'] . "\",
-			time=\"" . $id['time'] . "\",
-			calories=\"" . $id['calories'] . "\" 
-			WHERE id={$id['id']}";
+		if(!empty($id['id'])) {
+			$sql = "UPDATE `FT_meals` SET 
+				meal=\"" . $id['meal'] . "\",
+				time=\"" . $id['time'] . "\",
+				calories=\"" . $id['calories'] . "\" 
+				WHERE id={$id['id']}";
+		}
+		else {
+			$sql = "INSERT INTO `FT_meals`
+			(user_id, meal, time, calories, create_time)
+			VALUES ('1', '$id[meal]', '$id[time]', '$id[calories]', NOW() )";
+		}
 		$results = $conn->query($sql);
 		$conn->close();
 		echo "Edit complete";	

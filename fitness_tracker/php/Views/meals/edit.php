@@ -1,4 +1,4 @@
-<form class="form-horizontal" method="post">
+<form class="form-horizontal" action="?action=save" method="post">
 	<input type="text" class="form-control" name="meal" value="<?=$model['meal']?>">
 	<input type="text" class="form-control" name="time" value="<?=$model['time']?>">
 	<input type="text" class="form-control" name="calories" value="<?=$model['calories']?>">
