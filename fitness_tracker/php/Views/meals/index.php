@@ -7,6 +7,8 @@
 	<tr>
 		<td>
 		<!--Insert Controllers-->
+		<a class="button" href="?action=edit&id=<?=$row['id']?>">Edit</a>
+		<a class="button" href="?action=delete&id=<?=$row['id']?>">Delete</a>
 		</td>
 		<td>
 			<?=$row['meal'] ?>

@@ -11,13 +11,12 @@
 			$model = Meal::Blank();
 			$view = "meals/edit.php";
 			break;
-		case 'save_POST':
-			$sub_action = empty($_REQUEST['id']) ? 'created' : 'updated';
-			$errors = Meal::Validate($_REQUEST);
-			if(!errors) {
+		case 'edit_POST':
+			//$sub_action = empty($_REQUEST['id']) ? 'created' : 'updated';
+			//$errors = Meal::Validate($_REQUEST);
+			if(!$errors) {
 				$errors = Meal::Save($_REQUEST);
 			}
-
 			if(!$errors) {
 				if($format == 'json') {
 					header("Location: ?action=edit&format=json&id=$_REQUEST[id]");
