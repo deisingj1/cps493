@@ -28,16 +28,16 @@
        		<div class="col-sm-12">
 				<ul class="nav nav-tabs nav-justified">
 					<li>
-						<a href="summary.php">Summary</a>
+						<a href="summary.html">Summary</a>
 					</li>
 					<li class="active">
-						<a href="meals.php">Meals</a>
+						<a href="meals.html">Meals</a>
 					</li>
 					<li>
-						<a href="workouts.php">Workouts</a>
+						<a href="workouts.html">Workouts</a>
 					</li>
 					<li>
-						<a href="stats.php">Stats</a>
+						<a href="stats.html">Stats</a>
 					</li>
 				</ul>
        			<nav class="navbar navbar-default top-menu">
@@ -75,10 +75,19 @@
 				var $self = $(this);
 				$.getJSON(this.href + "&format=json").then(function(data){
 					var html = editTemplate(data);
+					//$("#view").html(html);
 					var $tr = $self.closest("tr").after(html).hide();
-					});
-					return false;
+				});
+				return false;
 			});
+			$("#view").on("click", ".create", function(){
+				var $self = $(this);
+				var html = editTemplate();
+				$("#view").before(html);
+				$self.hide();
+				return false;
+			});
+
 			$.getJSON("/~deisingj1/cps493/fitness_tracker/php/Controllers/meals.php?format=json").then(function(data) {
 				var html = indexTemplate({rows: data});
 				$("#view").html(html);
@@ -86,10 +95,30 @@
 		});
 	</script>	
 	<script id="index-tmpl" type="text/template">
-		HELLO
-		<a href="/php/Controllers/meals.php?action=edit" class="btn btn-success">New</a>
+		<a class="btn create btn-success">New</a>
+		<table class="table table-striped">
+			{{#each rows}}
+			<tr>
+				<td><a class="edit" href="/~deisingj1/cps493/fitness_tracker/php/Controllers/meals.php?action=edit&id={{id}}">Edit</a>
+				<td>{{meal}}</td>
+				<td>{{time}}</td>
+				<td>{{calories}}</td>
+			</tr>
+			{{/each}}
+			</table>
+
 	</script>
 	<script id="edit-tmpl" type="text/template">
-		HELLO
+	        <tr>
+			<form action="/~deisingj1/cps493/fitness_tracker/php/Controllers/meals.php?action=save" method="POST">
+			<td><input type="text" name="meal" class="form-control" placeholder="Meal" value="{{meal}}" /></td>
+			<td><input type="text" name="time" class="form-control" placeholder="Time" value="{{time}}" /></td>
+			<td><input type="text" name="calories" class="form-control" placeholder="Calories" value="{{calories}}" /></td>
+			<td>
+				<input type="submit" value="Submit" class="btn btn-primary"/>
+				<input type="hidden" name="id" value="{{id}}" /> 
+			</td>
+			</form>
+		</tr>
 	</script>
 </body> 
