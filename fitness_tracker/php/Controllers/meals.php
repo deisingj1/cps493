@@ -51,7 +51,6 @@
 			}
 			break;
 		case 'search_GET':
-			echo "search get";
 			$model = Meal::Search($_REQUEST['q']);
 			$view = 'meals/index.php';
 			break;

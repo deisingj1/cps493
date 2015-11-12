@@ -1,3 +1,5 @@
+<a href="?action=edit" class="btn btn-success">New</a>
+<br \><br \>
 <table class="table table-striped">
 <th>Action</th>
 <th>Meal</th>
