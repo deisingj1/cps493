@@ -1,0 +1,95 @@
+<head>
+	<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Fitness Tracker</title>
+	
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+	<link href="style.css" type="text/css" rel="stylesheet"/>
+	
+	<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+
+<body>
+  	<div class="container">
+   		<div class="row">
+   			<div class="col-sm-12">
+		   		<header>
+		   			<h1>
+		   				Fitness Tracker.biz
+		   			</h1>
+		   		</header>
+		   		</div>
+    	</div>
+    	<div class="row">
+       		<div class="col-sm-12">
+				<ul class="nav nav-tabs nav-justified">
+					<li>
+						<a href="summary.php">Summary</a>
+					</li>
+					<li class="active">
+						<a href="meals.php">Meals</a>
+					</li>
+					<li>
+						<a href="workouts.php">Workouts</a>
+					</li>
+					<li>
+						<a href="stats.php">Stats</a>
+					</li>
+				</ul>
+       			<nav class="navbar navbar-default top-menu">
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-search"></span>
+								</button> 
+							</span>
+						</div>
+					</form>
+       				<form class="navbar-form navbar-left user-loggedin" role="records">
+       					Hello, <?=$name?> <a href="#">(switch)</a>&nbsp;&nbsp;
+						<button class="btn btn-default" type="button" id="addButton">
+							Add
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</form>
+       			</nav>
+			<div id="view"></div>
+		</div>
+	</div>
+		<!-- Javascript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js"></script>
+	<!-- Handlebars -->
+	<script type="text/javascript">
+		$(function(){
+			var editTemplate = Handlebars.compile($("#edit-tmpl").html());
+			var indexTemplate = Handlebars.compile($("#index-tmpl").html());
+			$("#view").on("click", ".edit", function(){
+				var $self = $(this);
+				$.getJSON(this.href + "&format=json").then(function(data){
+					var html = editTemplate(data);
+					var $tr = $self.closest("tr").after(html).hide();
+					});
+					return false;
+			});
+			$.getJSON("/~deisingj1/cps493/fitness_tracker/php/Controllers/meals.php?format=json").then(function(data) {
+				var html = indexTemplate({rows: data});
+				$("#view").html(html);
+			});
+		});
+	</script>	
+	<script id="index-tmpl" type="text/template">
+		HELLO
+		<a href="/php/Controllers/meals.php?action=edit" class="btn btn-success">New</a>
+	</script>
+	<script id="edit-tmpl" type="text/template">
+		HELLO
+	</script>
+</body> 
