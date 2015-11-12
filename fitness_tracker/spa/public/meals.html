@@ -87,7 +87,6 @@
 				$self.hide();
 				return false;
 			});
-
 			$.getJSON("/~deisingj1/cps493/fitness_tracker/php/Controllers/meals.php?format=json").then(function(data) {
 				var html = indexTemplate({rows: data});
 				$("#view").html(html);
@@ -110,12 +109,12 @@
 	</script>
 	<script id="edit-tmpl" type="text/template">
 	        <tr>
-			<form action="/~deisingj1/cps493/fitness_tracker/php/Controllers/meals.php?action=save" method="POST">
+			<form id="edit_form" action="/~deisingj1/cps493/fitness_tracker/php/Controllers/meals.php?action=save" method="POST">
 			<td><input type="text" name="meal" class="form-control" placeholder="Meal" value="{{meal}}" /></td>
 			<td><input type="text" name="time" class="form-control" placeholder="Time" value="{{time}}" /></td>
 			<td><input type="text" name="calories" class="form-control" placeholder="Calories" value="{{calories}}" /></td>
 			<td>
-				<input type="submit" value="Submit" class="btn btn-primary"/>
+				<input type="submit" value="Submit" class="sub_button btn btn-primary"/>
 				<input type="hidden" name="id" value="{{id}}" /> 
 			</td>
 			</form>
