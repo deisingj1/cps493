@@ -1,2 +1,4 @@
 *.swp
 *password*
+phpMyAdmin/*
+node_modules*
