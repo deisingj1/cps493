@@ -77,17 +77,27 @@
 				$.ajax({
     				type: "DELETE",
 					url: $self.href,
-    				success: function(msg){
-    					alert("Data Deleted: " + msg);
-					}
+				})
+				.done(function(data){
+					location.reload();
 				});
 			});
+			
 			$("#view").on("click", ".create", function(){
 				var $self = $(this);
 				var html = editTemplate();
-				$("#view").before(html);
-				$self.hide();
-				return false;
+				$("#view").prepend(html);
+		        var $tr = $self.prev("tr").after(html).hide();
+                $tr.next().find(".submit").one('click', function(){
+                    $.ajax({ url: '/meal/', type: 'POST', data: $tr.next().find("input").serialize() })
+                    .done(function(data){
+                        location.reload();
+                    }).fail(function(data){
+                        alert(data.responseJSON.code);
+                    });
+                    return false;
+                });
+    	        return false;
 			});
 			$("#view").on("click", ".edit", function(){
 				var $self = $(this);

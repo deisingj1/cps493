@@ -33,7 +33,6 @@ module.exports =  {
 						  + " (workout, time, calories, create_time) "
 						  + "VALUES (?, ?, ?, Now() ) ";				
 			  }
-
         conn.query(sql, [row.workout, row.time, row.calories, row.id],function(err,data){
           if(!err && !row.id){
             row.id = data.insertId;
