@@ -71,14 +71,16 @@
 		$(function(){
 			var editTemplate = Handlebars.compile($("#edit-tmpl").html());
 			var indexTemplate = Handlebars.compile($("#index-tmpl").html());
-			$("#view").on("click", ".edit", function(){
-				var $self = $(this);
-				$.getJSON(this.href + "&format=json").then(function(data){
-					var html = editTemplate(data);
-					//$("#view").html(html);
-					var $tr = $self.closest("tr").after(html).hide();
+
+			$("#view").on("click", ".delete", function(){
+				var $self = this;
+				$.ajax({
+    				type: "DELETE",
+					url: $self.href,
+    				success: function(msg){
+    					alert("Data Deleted: " + msg);
+					}
 				});
-				return false;
 			});
 			$("#view").on("click", ".create", function(){
 				var $self = $(this);
@@ -87,7 +89,24 @@
 				$self.hide();
 				return false;
 			});
-			$.getJSON("/~deisingj1/cps493/fitness_tracker/php/Controllers/meals.php?format=json").then(function(data) {
+			$("#view").on("click", ".edit", function(){
+				var $self = $(this);
+                $.getJSON(this.href).then(function(data){
+                    var html = editTemplate(data);
+                    var $tr = $self.closest("tr").after(html).hide()
+                    $tr.next().find(".submit").one('click', function(){
+                        $.ajax({ url: '/meal/', type: 'POST', data: $tr.next().find("input").serialize() })
+                        .done(function(data){
+                            location.reload();
+                        }).fail(function(data){
+                            alert(data.responseJSON.code);
+                        });
+                        return false;
+                    });
+                });
+                return false;
+			});
+			$.getJSON("/meal").then(function(data) {
 				var html = indexTemplate({rows: data});
 				$("#view").html(html);
 			});
@@ -102,7 +121,10 @@
 				<th>Calories</th>
 			{{#each rows}}
 			<tr>
-				<td><a class="edit" href="/~deisingj1/cps493/fitness_tracker/php/Controllers/meals.php?action=edit&id={{id}}">Edit</a>
+				<td>
+					<a class="edit" href="/meal/{{id}}">Edit</a>
+					<a class="delete" href="/meal/{{id}}">Delete</a>
+				</td>
 				<td>{{meal}}</td>
 				<td>{{time}}</td>
 				<td>{{calories}}</td>
@@ -113,12 +135,12 @@
 	</script>
 	<script id="edit-tmpl" type="text/template">
 	        <tr>
-			<form id="edit_form" action="/~deisingj1/cps493/fitness_tracker/php/Controllers/meals.php?action=save" method="POST">
+			<form id="edit_form"> 
 			<td><input type="text" name="meal" class="form-control" placeholder="Meal" value="{{meal}}" /></td>
 			<td><input type="text" name="time" class="form-control" placeholder="Time" value="{{time}}" /></td>
 			<td><input type="text" name="calories" class="form-control" placeholder="Calories" value="{{calories}}" /></td>
 			<td>
-				<input type="submit" value="Submit" class="sub_button btn btn-primary"/>
+				<input type="submit" value="Submit" class="submit btn btn-primary"/>
 				<input type="hidden" name="id" value="{{id}}" /> 
 			</td>
 			</form>

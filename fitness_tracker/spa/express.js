@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var meal = require("./Model/meal");
 var workout = require("./Model/workout")
 
+console.log(__dirname + '/public');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 

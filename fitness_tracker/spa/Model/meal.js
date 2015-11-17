@@ -34,7 +34,7 @@ module.exports =  {
 						  + "VALUES (?, ?, ?, Now() ) ";				
 			  }
 
-        conn.query(sql, [row.workout, row.time, row.calories, row.id],function(err,data){
+        conn.query(sql, [row.meal, row.time, row.calories, row.id],function(err,data){
           if(!err && !row.id){
             row.id = data.insertId;
           }
@@ -45,7 +45,7 @@ module.exports =  {
     validate: function(row){
       var errors = {};
       
-      if(!row.Name) errors.Name = "is required"; 
+      if(!row.meal) errors.meal = "is required"; 
       
       return errors.length ? errors : false;
     }

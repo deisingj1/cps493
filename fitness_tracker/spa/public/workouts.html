@@ -73,7 +73,7 @@
 			var indexTemplate = Handlebars.compile($("#index-tmpl").html());
 			$("#view").on("click", ".edit", function(){
 				var $self = $(this);
-				$.getJSON(this.href + "&format=json").then(function(data){
+				$.getJSON(this.href).then(function(data){
 					var html = editTemplate(data);
 					//$("#view").html(html);
 					var $tr = $self.closest("tr").after(html).hide();
@@ -87,7 +87,10 @@
 				$self.hide();
 				return false;
 			});
-			$.getJSON("/~deisingj1/cps493/fitness_tracker/php/Controllers/workouts.php?format=json").then(function(data) {
+			$("#view").on("click", "[type='submit']", function(){
+				console.log("SUBMIT");
+			});
+			$.getJSON("/workout").then(function(data) {
 				var html = indexTemplate({rows: data});
 				$("#view").html(html);
 			});
@@ -102,7 +105,7 @@
 				<th>Calories</th>
 			{{#each rows}}
 			<tr>
-				<td><a class="edit" href="/~deisingj1/cps493/fitness_tracker/php/Controllers/workouts.php?action=edit&id={{id}}">Edit</a>
+				<td><a class="edit" href="workout/{{id}}">Edit</a>
 				<td>{{workout}}</td>
 				<td>{{time}}</td>
 				<td>{{calories}}</td>
@@ -114,7 +117,7 @@
 	<script id="edit-tmpl" type="text/template">
 	        <tr>
 			<form id="edit_form" action="/~deisingj1/cps493/fitness_tracker/php/Controllers/workouts.php?action=save" method="POST">
-			<td><input type="text" name="meal" class="form-control" placeholder="Workouts" value="{{workouts}}" /></td>
+			<td><input type="text" name="meal" class="form-control" placeholder="Workouts" value="{{workout}}" /></td>
 			<td><input type="text" name="time" class="form-control" placeholder="Time" value="{{time}}" /></td>
 			<td><input type="text" name="calories" class="form-control" placeholder="Calories" value="{{calories}}" /></td>
 			<td>
