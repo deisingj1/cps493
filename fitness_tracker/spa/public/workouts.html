@@ -13,7 +13,7 @@
         <![endif]-->
 </head>
 
-<body>
+<body ng-app='app' ng-controller="workout as vm">
   	<div class="container">
    		<div class="row">
    			<div class="col-sm-12">
@@ -66,8 +66,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular.min.js"></script>
 	<!-- Handlebars -->
 	<script type="text/javascript">
+		angular.module('app',[]);
 		$(function(){
 			var editTemplate = Handlebars.compile($("#edit-tmpl").html());
 			var indexTemplate = Handlebars.compile($("#index-tmpl").html());
