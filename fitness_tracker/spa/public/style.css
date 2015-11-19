@@ -1,0 +1,40 @@
+.container {
+	background-color: white;
+}
+body {
+	background-color: white;
+}
+footer {
+	text-align: center;
+}
+.nav-tabs {
+	border: 1px;
+}
+.date-nav {
+	padding-left: 30px;
+}
+.dates > a > li:hover {
+	background-color: #EEEEEE;
+	font-style: normal;
+}
+.navbar-form {
+	 border: 0px;
+}
+.nav-tabs {
+	
+}
+#addDropdown button {
+	width: 150px;
+}
+.user-loggedin {
+	line-height: 34px;
+	margin-top: 8px;
+	margin-left: 0px;
+}
+.top-menu {
+	min-height: 54px;
+}
+[role=search] {
+	padding-right: 30px;
+	padding-left: 30px;
+}
