@@ -52,7 +52,7 @@
 						</div>
 					</form>
        				<form class="navbar-form navbar-left user-loggedin" role="records">
-       					Hello, <?=$name?> <a href="#">(switch)</a>&nbsp;&nbsp;
+       					Hello<a href="#">(switch)</a>&nbsp;&nbsp;
 						<button class="btn btn-default" type="button" id="addButton">
 							Add
 							<span class="glyphicon glyphicon-plus"></span>
@@ -64,7 +64,7 @@
 	</div>
 	<div ng-include="'index-tmpl'"></div>
 	
-	<div class="modal fade" id="myDialog">
+	<div class="modal fade" id="deleteModal">
       <div class="modal-dialog">
         <div class="modal-content">
         <form class="form-horizontal" >
@@ -112,8 +112,24 @@
                         alert(data.code);
                     });
 			}
+			self.delete = function(row, index) {
+				self.d = {
+					title: "Confirm delete",
+					body: "Are you sure you want to delete " + row.workout + "?",
+					confirm: function() {
+						$http.delete('/workout/' + row.id)
+						.success(function(data) {
+							self.rows.splice(index,1);
+							$("#deleteModal").modal('hide');
+						}).error(function(data) {
+							alert(data.code);
+						});
+					}					
+				}
+				$("#deleteModal").modal('show');
+			}
 		});
-
+	</script>
 	<script id="index-tmpl" type="text/ng-template">
 		<a ng-click="vm.create()">New</a>
 
@@ -127,27 +143,28 @@
 					<a ng-click="vm.edit(row, $index)">Edit</a>
 					<a ng-click="vm.delete(row, $index)">Delete</a>
 				</td>
-				<td ng-if-start="!row.isEditing">{{row.workout}}</td>
-				<td>{{row.time}}</td>
-				<td ng-if-end>{{row.calories}}</td>
-				<td ng-if-start="row.isEditing"><input type="text" name="workout" class="form-control" placeholder="Workouts" ng-model="row.workout" /></td>
-				<td><input type="text" name="time" class="form-control" placeholder="Time" ng-model="row.time" /></td>
-				<td><input type="text" name="calories" class="form-control" placeholder="Calories" ng-model="row.calories" /></td>
-				<td ng-if-end><input type="button" class="btn btn-primary" ng-click="vm.save(row, $index)" value="Submit"/></td>
+				<td ng-if-start="!row.isEditing">
+					{{row.workout}}
+				</td>
+				<td>
+					{{row.time}}
+				</td>
+				<td ng-if-end>
+					{{row.calories}}
+				</td>
+				<td ng-if-start="row.isEditing">
+					<input type="text" name="workout" class="form-control" placeholder="Workouts" ng-model="row.workout" />
+				</td>
+				<td>
+					<input type="text" name="time" class="form-control" placeholder="Time" ng-model="row.time" />
+				</td>
+				<td>
+					<input type="text" name="calories" class="form-control" placeholder="Calories" ng-model="row.calories" />
+				</td>
+				<td ng-if-end>
+					<input type="button" class="btn btn-primary" ng-click="vm.save(row, $index)" value="Submit"/>
+				</td>
 			</tr>
 			</table>
-	</script>
-	<script id="edit-tmpl" type="text/ng-template">
-	        <tr>
-			<form id="edit_form">
-			<td><input type="text" name="workout" class="form-control" placeholder="Workouts" value="{{workout}}" /></td>
-			<td><input type="text" name="time" class="form-control" placeholder="Time" value="{{time}}" /></td>
-			<td><input type="text" name="calories" class="form-control" placeholder="Calories" value="{{calories}}" /></td>
-			<td>
-				<input type="button" value="Submit" class="submit btn btn-primary"/>
-				<input type="hidden" name="id" value="{{id}}" /> 
-			</td>
-			</form>
-		</tr>
 	</script>
 </body> 
