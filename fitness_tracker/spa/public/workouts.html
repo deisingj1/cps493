@@ -13,7 +13,7 @@
         <![endif]-->
 </head>
 
-<body>
+<body ng-app='app' ng-controller="workout as vm">
   	<div class="container">
    		<div class="row">
    			<div class="col-sm-12">
@@ -52,7 +52,7 @@
 						</div>
 					</form>
        				<form class="navbar-form navbar-left user-loggedin" role="records">
-       					Hello, <?=$name?> <a href="#">(switch)</a>&nbsp;&nbsp;
+       					Hello<a href="#">(switch)</a>&nbsp;&nbsp;
 						<button class="btn btn-default" type="button" id="addButton">
 							Add
 							<span class="glyphicon glyphicon-plus"></span>
@@ -62,97 +62,110 @@
 			<div id="view"></div>
 		</div>
 	</div>
+	<div ng-include="'index-tmpl'"></div>
+	
+	<div class="modal fade" id="deleteModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        <form class="form-horizontal" >
+          <div class="modal-header">
+            <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
+            <h4 class="modal-title" >{{vm.d.title}}</h4>
+          </div>
+        	<div class="modal-body">{{vm.d.body}}
+        	</div>
+        	<div class="modal-footer">
+        		<a href="?" class="btn btn-default" data-dismiss="modal" >Cancel </a>
+        		<input ng-click="vm.d.confirm()" type="submit" name="submit" class="btn btn-primary submit" value="Save changes" />
+        	</div>
+        </form>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 		<!-- Javascript -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular.min.js"></script>
+	
 	<!-- Handlebars -->
 	<script type="text/javascript">
-		$(function(){
-			var editTemplate = Handlebars.compile($("#edit-tmpl").html());
-			var indexTemplate = Handlebars.compile($("#index-tmpl").html());
-			$("#view").on("click", ".delete", function(){
-				var $self = this;
-				$.ajax({
-    				type: "DELETE",
-					url: $self.href,
-				})
-				.done(function(data){
-					location.reload();
-				});
+		angular.module('app',[])
+		.controller('workout', function($http){
+			var self = this;
+			
+			$http.get("/workout")
+			.success(function(data) {
+				self.rows = data;
 			});
-			$("#view").on("click", ".edit", function(){
-				var $self = $(this);
-                $.getJSON(this.href).then(function(data){
-                    var html = editTemplate(data);
-                    var $tr = $self.closest("tr").after(html).hide()
-                    $tr.next().find(".submit").one('click', function(){
-                        $.ajax({ url: '/workout/', type: 'POST', data: $tr.next().find("input").serialize() })
-                        .done(function(data){
-                            location.reload();
-                        }).fail(function(data){
-                            alert(data.responseJSON.code);
-                        });
-                        return false;
+			self.create = function() {
+				self.rows.push({ isEditing: true});
+			}
+			self.edit = function(row, index){
+				row.isEditing = true;	
+			}
+			self.save = function(row, index) {
+				$http.post('/workout/', row)
+                    .success(function(data){
+                    	data.isEditing = false;
+                    	self.rows[index] = data;
+                    }).error(function(data){
+                        alert(data.code);
                     });
-                });
-                return false;
-			});
-			$("#view").on("click", ".create", function(){
-				var $self = $(this);
-				var html = editTemplate();
-				$("#view").prepend(html);
-		        var $tr = $self.prev("tr").after(html).hide();
-                $tr.next().find(".submit").one('click', function(){
-                    $.ajax({ url: '/workout/', type: 'POST', data: $tr.next().find("input").serialize() })
-                    .done(function(data){
-                        location.reload();
-                    }).fail(function(data){
-                        alert(data.responseJSON.code);
-                    });
-                    return false;
-                });
-    	        return false;
-			});
-			$.getJSON("/workout").then(function(data) {
-				var html = indexTemplate({rows: data});
-				$("#view").html(html);
-			});
+			}
+			self.delete = function(row, index) {
+				self.d = {
+					title: "Confirm delete",
+					body: "Are you sure you want to delete " + row.workout + "?",
+					confirm: function() {
+						$http.delete('/workout/' + row.id)
+						.success(function(data) {
+							self.rows.splice(index,1);
+							$("#deleteModal").modal('hide');
+						}).error(function(data) {
+							alert(data.code);
+						});
+					}					
+				}
+				$("#deleteModal").modal('show');
+			}
 		});
-	</script>	
-	<script id="index-tmpl" type="text/template">
-		<a class="btn create btn-success">New</a>
+	</script>
+	<script id="index-tmpl" type="text/ng-template">
+		<a ng-click="vm.create()">New</a>
 
 		<table class="table table-striped">
 				<th>Action</th>
 				<th>Exercise</th>
 				<th>Time</th>
 				<th>Calories</th>
-			{{#each rows}}
-			<tr>
+			<tr ng-repeat="row in vm.rows">
 				<td>
-					<a class="edit" href="/workout/{{id}}">Edit</a>
-					<a class="delete" href="/workout/{{id}}">Delete</a>
+					<a ng-click="vm.edit(row, $index)">Edit</a>
+					<a ng-click="vm.delete(row, $index)">Delete</a>
 				</td>
-				<td>{{workout}}</td>
-				<td>{{time}}</td>
-				<td>{{calories}}</td>
+				<td ng-if-start="!row.isEditing">
+					{{row.workout}}
+				</td>
+				<td>
+					{{row.time}}
+				</td>
+				<td ng-if-end>
+					{{row.calories}}
+				</td>
+				<td ng-if-start="row.isEditing">
+					<input type="text" name="workout" class="form-control" placeholder="Workouts" ng-model="row.workout" />
+				</td>
+				<td>
+					<input type="text" name="time" class="form-control" placeholder="Time" ng-model="row.time" />
+				</td>
+				<td>
+					<input type="text" name="calories" class="form-control" placeholder="Calories" ng-model="row.calories" />
+				</td>
+				<td ng-if-end>
+					<input type="button" class="btn btn-primary" ng-click="vm.save(row, $index)" value="Submit"/>
+				</td>
 			</tr>
-			{{/each}}
 			</table>
+	</script>
 
-	</script>
-	<script id="edit-tmpl" type="text/template">
-	        <tr>
-			<form id="edit_form">
-			<td><input type="text" name="workout" class="form-control" placeholder="Workouts" value="{{workout}}" /></td>
-			<td><input type="text" name="time" class="form-control" placeholder="Time" value="{{time}}" /></td>
-			<td><input type="text" name="calories" class="form-control" placeholder="Calories" value="{{calories}}" /></td>
-			<td>
-				<input type="button" value="Submit" class="submit btn btn-primary"/>
-				<input type="hidden" name="id" value="{{id}}" /> 
-			</td>
-			</form>
-		</tr>
-	</script>
 </body> 
