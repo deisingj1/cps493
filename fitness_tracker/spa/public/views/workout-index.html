@@ -1,0 +1,35 @@
+		<a class="btn btn-success" ng-click="vm.create()">New</a>
+
+		<table class="table table-striped">
+				<th>Action</th>
+				<th>Workout</th>
+				<th>Time</th>
+				<th>Calories</th>
+			<tr ng-repeat="row in vm.rows">
+				<td>
+					<a ng-click="vm.edit(row, $index)">Edit</a>
+					<a ng-click="vm.delete(row, $index)">Delete</a>
+				</td>
+				<td ng-if-start="!row.isEditing">
+					{{row.workout}}
+				</td>
+				<td>
+					{{row.time}}
+				</td>
+				<td ng-if-end>
+					{{row.calories}}
+				</td>
+				<td ng-if-start="row.isEditing">
+					<input type="text" name="workout" class="form-control" placeholder="Meal" ng-model="row.workout" />
+				</td>
+				<td>
+					<input type="text" name="time" class="form-control" placeholder="Time" ng-model="row.time" />
+				</td>
+				<td>
+					<input type="text" name="calories" class="form-control" placeholder="Calories" ng-model="row.calories" />
+				</td>
+				<td ng-if-end>
+					<input type="button" class="btn btn-primary" ng-click="vm.save(row, $index)" value="Submit"/>
+				</td>
+			</tr>
+			</table>

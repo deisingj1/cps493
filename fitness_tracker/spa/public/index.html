@@ -13,7 +13,7 @@
         <![endif]-->
 </head>
 
-<body ng-app='app' ng-controller="meal as vm">
+<body ng-app='app' ng-controller="workout as vm">
   	<div class="container">
    		<div class="row">
    			<div class="col-sm-12">
@@ -30,11 +30,11 @@
 					<li>
 						<a href="summary.html">Summary</a>
 					</li>
-					<li class="active">
-						<a href="meals.html">Meals</a>
-					</li>
 					<li>
-						<a href="workouts.html">Workouts</a>
+						<a href="#/meal">Meals</a>
+					</li>
+					<li class="active">
+						<a href="#/workout">Workouts</a>
 					</li>
 					<li>
 						<a href="stats.html">Stats</a>
@@ -62,7 +62,7 @@
 			<div id="view"></div>
 		</div>
 	</div>
-	<div ng-include="'/views/meal-index.html'"></div>
+	<div ng-view ></div>
 	
 	<div class="modal fade" id="deleteModal">
       <div class="modal-dialog">
@@ -86,10 +86,24 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-route.min.js"></script>
 	
-	<!-- Handlebars -->
 	<script type="text/javascript">
-		angular.module('app',[])
+		angular.module('app',['ngRoute'])
+		.config(function($routeProvider){
+			$routeProvider.
+				when('/meal', {
+					templateUrl: 'views/meal-index.html',
+					controller: 'meal', controllerAs: 'vm'
+				}).
+				when('/workout', { 
+					templateUrl: 'views/workout-index.html',
+					controller: 'workout'
+				}).
+				otherwise({
+					redirectTo: '/workout'
+			});
+		})
 		.controller('meal', function($http){
 			var self = this;
 			
@@ -118,6 +132,45 @@
 					body: "Are you sure you want to delete " + row.meal + "?",
 					confirm: function() {
 						$http.delete('/meal/' + row.id)
+						.success(function(data) {
+							self.rows.splice(index,1);
+							$("#deleteModal").modal('hide');
+						}).error(function(data) {
+							alert(data.code);
+						});
+					}					
+				}
+				$("#deleteModal").modal('show');
+			}
+		})
+		.controller('workout', function($http){
+			var self = this;
+			
+			$http.get("/workout")
+			.success(function(data) {
+				self.rows = data;
+			});
+			self.create = function() {
+				self.rows.push({ isEditing: true});
+			}
+			self.edit = function(row, index){
+				row.isEditing = true;	
+			}
+			self.save = function(row, index) {
+				$http.post('/workout/', row)
+                    .success(function(data){
+                    	data.isEditing = false;
+                    	self.rows[index] = data;
+                    }).error(function(data){
+                        alert(data.code);
+                    });
+			}
+			self.delete = function(row, index) {
+				self.d = {
+					title: "Confirm delete",
+					body: "Are you sure you want to delete " + row.workout + "?",
+					confirm: function() {
+						$http.delete('/workout/' + row.id)
 						.success(function(data) {
 							self.rows.splice(index,1);
 							$("#deleteModal").modal('hide');
