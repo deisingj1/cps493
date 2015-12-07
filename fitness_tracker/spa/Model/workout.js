@@ -13,7 +13,7 @@ module.exports =  {
           conn.end();
         });        
     },
-    delete: function(id, ret){
+    delete: function(i, ret){
         var conn = GetConnection();
         conn.query("DELETE FROM FT_workouts WHERE id = " + id, function(err,rows){
           ret(err);

@@ -27,13 +27,13 @@
     	<div class="row">
        		<div class="col-sm-12">
 				<ul class="nav nav-tabs nav-justified">
-					<li>
+					<li class="active">
 						<a href="summary.html">Summary</a>
 					</li>
 					<li>
 						<a href="#/meal">Meals</a>
 					</li>
-					<li class="active">
+					<li>
 						<a href="#/workout">Workouts</a>
 					</li>
 					<li>
@@ -59,7 +59,6 @@
 						</button>
 					</form>
        			</nav>
-			<div id="view"></div>
 		</div>
 	</div>
 	<div ng-view ></div>
@@ -87,7 +86,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-route.min.js"></script>
-	
+	<script type="text/javascript" src="//connect.facebook.net/en_US/sdk.js"></script>
 	<script type="text/javascript">
 		angular.module('app',['ngRoute'])
 		.config(function($routeProvider){
@@ -98,90 +97,13 @@
 				}).
 				when('/workout', { 
 					templateUrl: 'views/workout-index.html',
-					controller: 'workout'
+					controller: 'workout', controllerAs: 'vm'
 				}).
 				otherwise({
-					redirectTo: '/workout'
+					redirectTo: '/meal'
 			});
 		})
-		.controller('meal', function($http){
-			var self = this;
-			
-			$http.get("/meal")
-			.success(function(data) {
-				self.rows = data;
-			});
-			self.create = function() {
-				self.rows.push({ isEditing: true});
-			}
-			self.edit = function(row, index){
-				row.isEditing = true;	
-			}
-			self.save = function(row, index) {
-				$http.post('/meal/', row)
-                    .success(function(data){
-                    	data.isEditing = false;
-                    	self.rows[index] = data;
-                    }).error(function(data){
-                        alert(data.code);
-                    });
-			}
-			self.delete = function(row, index) {
-				self.d = {
-					title: "Confirm delete",
-					body: "Are you sure you want to delete " + row.meal + "?",
-					confirm: function() {
-						$http.delete('/meal/' + row.id)
-						.success(function(data) {
-							self.rows.splice(index,1);
-							$("#deleteModal").modal('hide');
-						}).error(function(data) {
-							alert(data.code);
-						});
-					}					
-				}
-				$("#deleteModal").modal('show');
-			}
-		})
-		.controller('workout', function($http){
-			var self = this;
-			
-			$http.get("/workout")
-			.success(function(data) {
-				self.rows = data;
-			});
-			self.create = function() {
-				self.rows.push({ isEditing: true});
-			}
-			self.edit = function(row, index){
-				row.isEditing = true;	
-			}
-			self.save = function(row, index) {
-				$http.post('/workout/', row)
-                    .success(function(data){
-                    	data.isEditing = false;
-                    	self.rows[index] = data;
-                    }).error(function(data){
-                        alert(data.code);
-                    });
-			}
-			self.delete = function(row, index) {
-				self.d = {
-					title: "Confirm delete",
-					body: "Are you sure you want to delete " + row.workout + "?",
-					confirm: function() {
-						$http.delete('/workout/' + row.id)
-						.success(function(data) {
-							self.rows.splice(index,1);
-							$("#deleteModal").modal('hide');
-						}).error(function(data) {
-							alert(data.code);
-						});
-					}					
-				}
-				$("#deleteModal").modal('show');
-			}
-		});
 	</script>
-
+	<script type="text/javascript" src="controllers/meal.js"></script>
+	<script type="text/javascript" src="controllers/workout.js"></script>
 </body> 
