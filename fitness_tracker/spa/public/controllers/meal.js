@@ -39,21 +39,28 @@
 				});
 			}
 		})
-		.controller('foodSearch', function($http, panel){
+		.controller('mealSearch', function($http, panel){
             var self = this;
+            
             self.row = {};
             self.term = null;
             self.choices = [];
             
             self.search = function(){
-                $http.get("/food/search/" + self.term)
-                .success(function(data){
-                    self.choices = data.hits;
-                });
+            	if(self.term != "") {
+                	$http.get("/meal/search/" + self.term)
+                	.success(function(data){
+                	    self.choices = data.hits;
+            		});
+            	}
+            	else {
+            		self.choices = [];
+            	}
             }
             self.choose = function(choice){
-                self.row.meal = choice.fields.item_name;
-                self.row.calories = choice.fields.nf_calories;
+                self.row.Name = choice.fields.item_name;
+                self.row.Calories = choice.fields.nf_calories;
+                self.row.Fat = choice.fields.nf_total_fat;
                 self.choices = [];
             }
         })
