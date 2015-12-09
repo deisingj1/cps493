@@ -1,5 +1,5 @@
         angular.module('app')
-        .controller('workout', function($http){
+        .controller('workout', function($http, panel){
 			var self = this;
 			
 			$http.get("/workout")
@@ -24,19 +24,18 @@
                     });
 			}
 			self.delete = function(row, index) {
-				self.d = {
+				panel.show({
 					title: "Confirm delete",
 					body: "Are you sure you want to delete " + row.workout + "?",
 					confirm: function() {
 						$http.delete('/workout/' + row.id)
 						.success(function(data) {
 							self.rows.splice(index,1);
-							$("#deleteModal").modal('hide');
+							panel.show(false);
 						}).error(function(data) {
 							alert(data.code);
 						});
 					}					
-				}
-				$("#deleteModal").modal('show');
+				});
 			}
 		})

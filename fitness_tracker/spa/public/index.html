@@ -13,7 +13,7 @@
         <![endif]-->
 </head>
 
-<body ng-app='app' ng-controller="workout as vm">
+<body ng-app='app'>
   	<div class="container">
    		<div class="row">
    			<div class="col-sm-12">
@@ -28,7 +28,7 @@
        		<div class="col-sm-12">
 				<ul class="nav nav-tabs nav-justified">
 					<li class="active">
-						<a href="summary.html">Summary</a>
+						<a href="#/">Summary</a>
 					</li>
 					<li>
 						<a href="#/meal">Meals</a>
@@ -61,6 +61,7 @@
        			</nav>
 		</div>
 	</div>
+    <mp-panel></mp-panel>	
 	<div ng-view ></div>
 	
 	<div class="modal fade" id="deleteModal">
@@ -87,8 +88,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-route.min.js"></script>
 	<script type="text/javascript" src="//connect.facebook.net/en_US/sdk.js"></script>
+    <script type="text/javascript" src="directives/panel.js"></script>
+
 	<script type="text/javascript">
-		angular.module('app',['ngRoute'])
+		angular.module('app',['ngRoute', 'deisingj1.directives'])
 		.config(function($routeProvider){
 			$routeProvider.
 				when('/meal', {
@@ -100,7 +103,7 @@
 					controller: 'workout', controllerAs: 'vm'
 				}).
 				otherwise({
-					redirectTo: '/meal'
+					redirectTo: '/'
 			});
 		})
 	</script>

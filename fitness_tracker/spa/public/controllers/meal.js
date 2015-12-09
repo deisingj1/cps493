@@ -1,5 +1,5 @@
         angular.module('app')
-		.controller('meal', function($http){
+		.controller('meal', function($http, panel){
 			var self = this;
 			
 			$http.get("/meal")
@@ -24,19 +24,36 @@
                     });
 			}
 			self.delete = function(row, index) {
-				self.d = {
+				panel.show({
 					title: "Confirm delete",
 					body: "Are you sure you want to delete " + row.meal + "?",
 					confirm: function() {
 						$http.delete('/meal/' + row.id)
 						.success(function(data) {
 							self.rows.splice(index,1);
-							$("#deleteModal").modal('hide');
+							panel.show(false);
 						}).error(function(data) {
 							alert(data.code);
 						});
 					}					
-				}
-				$("#deleteModal").modal('show');
+				});
 			}
 		})
+		.controller('foodSearch', function($http, panel){
+            var self = this;
+            self.row = {};
+            self.term = null;
+            self.choices = [];
+            
+            self.search = function(){
+                $http.get("/food/search/" + self.term)
+                .success(function(data){
+                    self.choices = data.hits;
+                });
+            }
+            self.choose = function(choice){
+                self.row.meal = choice.fields.item_name;
+                self.row.calories = choice.fields.nf_calories;
+                self.choices = [];
+            }
+        })
