@@ -48,7 +48,7 @@ app.get("/meal", function(req, res){
 })
 .get("/meal/search/:term", function(req, res){
     unirest.get("https://nutritionix-api.p.mashape.com/v1_1/search/" + req.params.term + "?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat")
-    .header("X-Mashape-Key", "QxyXJv64zNmshKT4iSlxif0Zm86Rp1boHAhjsna42sYYQXPKI4")
+    .header("X-Mashape-Key", "IGZgTggKMnmshgiyqWWrppKxwDR0p1FvHGAjsngCvRgN3P5X6V")
     .header("Accept", "application/json")
     .end(function (result) {
         res.send(result.body);

@@ -9,7 +9,7 @@
 				$("a[href='#/meal']").closest("li").addClass("active");
 			});
 			self.create = function() {
-				self.rows.push({ isEditing: true});
+				self.rows.push({ isEditing: true });	
 			}
 			self.edit = function(row, index){
 				row.isEditing = true;	

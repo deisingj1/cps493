@@ -1,12 +1,11 @@
-<input type="text" ng-change="vm.search()" ng-model="vm.term"/>
-<button class="btn btn-search" ng-click="vm.search()" >Search</button>
 
-<ul class="list-group">
+<input type="text" ng-change="vm.search()" ng-model="vm.term"/>
+
+<ul class="list-group" style="z-index: 2">
   <li class="list-group-item" ng-repeat="choice in vm.choices" ng-click="vm.choose(choice)">
       {{choice.fields.item_name}}
   </li>
 </ul>
-
 <table>
     <tr>
         <td></td>
@@ -26,5 +25,5 @@
      </td>
     <td >
         <input type="button" value="Save" class="btn btn-primary btn-sm submit" ng-click="vm.save(row, $index)"/>
-        <a href="#/meal" class="btn btn-default btn-sm submit" >Cancel</a>
+        <a href="#/food" class="btn btn-default btn-sm submit" >Cancel</a>
     </td>

@@ -37,51 +37,38 @@
 						<a href="#/workout">Workouts</a>
 					</li>
 					<li>
-						<a href="stats.html">Stats</a>
+						<a href="#/">Stats</a>
 					</li>
 				</ul>
        			<nav class="navbar navbar-default top-menu">
 					<form class="navbar-form navbar-right" role="search">
 						<div class="input-group">
+							<!--
 							<input type="text" class="form-control" placeholder="Search">
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="button">
 									<span class="glyphicon glyphicon-search"></span>
 								</button> 
 							</span>
+							-->
 						</div>
 					</form>
        				<form class="navbar-form navbar-left user-loggedin" role="records">
        					Hello<a href="#">(switch)</a>&nbsp;&nbsp;
+       					<!--
 						<button class="btn btn-default" type="button" id="addButton">
 							Add
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
+						-->
 					</form>
        			</nav>
 		</div>
 	</div>
     <mp-panel></mp-panel>	
+    <jd-A-Panel></jd-A-Panel>
 	<div ng-view ></div>
 	
-	<div class="modal fade" id="deleteModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-        <form class="form-horizontal" >
-          <div class="modal-header">
-            <a href="?" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
-            <h4 class="modal-title" >{{vm.d.title}}</h4>
-          </div>
-        	<div class="modal-body">{{vm.d.body}}
-        	</div>
-        	<div class="modal-footer">
-        		<a href="?" class="btn btn-default" data-dismiss="modal" >Cancel </a>
-        		<input ng-click="vm.d.confirm()" type="submit" name="submit" class="btn btn-primary submit" value="Save changes" />
-        	</div>
-        </form>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 		<!-- Javascript -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -89,6 +76,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-route.min.js"></script>
 	<script type="text/javascript" src="//connect.facebook.net/en_US/sdk.js"></script>
     <script type="text/javascript" src="directives/panel.js"></script>
+    
 
 	<script type="text/javascript">
 		angular.module('app',['ngRoute', 'deisingj1.directives'])
