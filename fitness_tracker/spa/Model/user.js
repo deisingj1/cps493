@@ -2,11 +2,11 @@ var mysql = require("mysql");
 
 module.exports =  {
     blank: function(){ return {} },
-    get: function(id, userId, ret){
+    get: function(id, ret){
         var conn = GetConnection();
-        var sql = 'SELECT * FROM FT_meals WHERE user_id = ' + userId;
+        var sql = 'SELECT * FROM FT_users';
         if(id){
-          sql += ",id = " + id;
+          sql += " where id = " + id;
         }
         conn.query(sql, function(err,rows){
           ret(err,rows);

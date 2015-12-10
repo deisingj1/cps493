@@ -1,7 +1,7 @@
         angular.module('app')
 		.controller('meal', function($http, panel){
 			var self = this;
-			
+	
 			$http.get("/meal")
 			.success(function(data) {
 				self.rows = data;

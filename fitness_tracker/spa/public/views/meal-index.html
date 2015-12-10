@@ -1,5 +1,7 @@
 		<a class="btn btn-success" ng-click="vm.create()">New</a>
-
+		<a class="btn" ng-click="function() {req.session.userid++; console.log(req.session.userid);}">Change user +</a>
+		<a class="btn" ng-click="function() {req.session.userid--; console.log(req.session.userid);}">Change user -</a>
+		<a class="btn" ng-click="console.log(req.session.userid);">Test</a>
 		<table class="table table-striped">
 				<th>Action</th>
 				<th>Meal</th>
