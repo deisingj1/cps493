@@ -39,7 +39,7 @@
 				});
 			}
 		})
-		.controller('mealSearch', function($http, panel){
+		.controller('mealSearch', function($http, $window, panel){
             var self = this;
             
             self.row = {};
@@ -58,9 +58,17 @@
             	}
             }
             self.choose = function(choice){
-                self.row.Name = choice.fields.item_name;
-                self.row.Calories = choice.fields.nf_calories;
-                self.row.Fat = choice.fields.nf_total_fat;
+                self.row.meal = choice.fields.item_name;
+                self.row.calories = choice.fields.nf_calories;
                 self.choices = [];
             }
+            self.save = function(row) {
+				$http.post('/meal/', row)
+                    .success(function(data){
+                    	//self.rows[index] = data;
+                    	window.location.href = "#/meal";
+                    }).error(function(data){
+                        alert(data.code);
+                    });
+			}
         })

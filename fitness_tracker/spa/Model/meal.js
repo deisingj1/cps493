@@ -2,9 +2,9 @@ var mysql = require("mysql");
 
 module.exports =  {
     blank: function(){ return {} },
-    get: function(id, userId, ret){
+    get: function(id, ret){
         var conn = GetConnection();
-        var sql = 'SELECT * FROM FT_meals WHERE user_id = ' + userId;
+        var sql = 'SELECT * FROM FT_meals';
         if(id){
           sql += ",id = " + id;
         }
@@ -20,8 +20,9 @@ module.exports =  {
           conn.end();
         });        
     },
-    save: function(row, userId, ret){
+    save: function(row, ret){
         var sql;
+        var userId = 0;
         var conn = GetConnection();
         //  TODO Sanitize
         if (row.id) {
@@ -31,7 +32,7 @@ module.exports =  {
 			  }else{
 				  sql = "INSERT INTO FT_meals "
 						  + " (meal, time, calories, create_time, user_id) "
-						  + "VALUES (?, ?, ?, Now()," + userId + " ) ";				
+						  + "VALUES (?, ?, ?, Now()," + userId + " )";				
 			  }
 
         conn.query(sql, [row.meal, row.time, row.calories, row.id, userId],function(err,data){

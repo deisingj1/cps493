@@ -11,11 +11,14 @@ console.log(__dirname + '/public');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(session({ secret: 'Ralph The Turtle' }));
+app.use(session({ secret: 'Ralph The Turtle', 
+    resave: true,
+    saveUninitialized: true,
+}));
 
 app.get("/meal", function(req, res){
-  req.session.userid = 0;
-  meal.get(null, req.session.userid, function(err, rows){
+  var req.session.userid = 0;
+  meal.get(null, function(err, rows){
     res.send(rows);
   })
     

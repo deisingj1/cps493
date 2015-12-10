@@ -1,6 +1,4 @@
-		<a class="btn btn-success" ng-click="vm.create()">New</a>
-		<a class="btn" ng-click="function() {req.session.userid++; console.log(req.session.userid);}">Change user +</a>
-		<a class="btn" ng-click="function() {req.session.userid--; console.log(req.session.userid);}">Change user -</a>
+		<a class="btn btn-success" href="#/meal/search">New</a>
 		<a class="btn" ng-click="console.log(req.session.userid);">Test</a>
 		<table class="table table-striped">
 				<th>Action</th>
@@ -22,7 +20,7 @@
 					{{row.calories}}
 				</td>
 				<td ng-if-start="row.isEditing">
-					<input type="text" name="workout" class="form-control" placeholder="Meal" ng-model="row.meal" />
+				<input type="text" name="workout" class="form-control" placeholder="Meal" ng-model="row.meal" />
 				</td>
 				<td>
 					<input type="text" name="time" class="form-control" placeholder="Time" ng-model="row.time" />
