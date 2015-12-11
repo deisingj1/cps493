@@ -17,8 +17,7 @@ app.use(session({ secret: 'Ralph The Turtle',
 }));
 
 app.get("/meal", function(req, res){
-  var req.session.userid = 0;
-  meal.get(null, function(err, rows){
+  meal.get(null, req.session.user.id, function(err, rows){
     res.send(rows);
   })
     
@@ -36,7 +35,7 @@ app.get("/meal", function(req, res){
     res.status(500).send(errors);
     return;
   }
-  meal.save(req.body, function(err, row){
+  meal.save(req.body, req.session.user.id, function(err, row){
     res.send(row);
   })
 })
@@ -103,6 +102,12 @@ app.get("/user", function(req, res){
   user.get(req.params.id, function(err, rows){
     res.send(rows[0]);
   })
-  
+})
+.get("/login/:id", function(req, res){
+  user.get(req.params.id, function(err,rows){
+    req.session.user = rows[0];
+    req.session.user.id = req.params.id;
+    res.send(rows[0]);
+  })
 })
 app.listen(process.env.PORT);

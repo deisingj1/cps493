@@ -2,9 +2,9 @@ var mysql = require("mysql");
 
 module.exports =  {
     blank: function(){ return {} },
-    get: function(id, ret){
+    get: function(id, userId, ret){
         var conn = GetConnection();
-        var sql = 'SELECT * FROM FT_meals';
+        var sql = 'SELECT * FROM FT_meals where user_id = ' + userId;
         if(id){
           sql += ",id = " + id;
         }
@@ -20,9 +20,8 @@ module.exports =  {
           conn.end();
         });        
     },
-    save: function(row, ret){
+    save: function(row, userId, ret){
         var sql;
-        var userId = 0;
         var conn = GetConnection();
         //  TODO Sanitize
         if (row.id) {
