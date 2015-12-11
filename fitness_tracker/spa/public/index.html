@@ -98,6 +98,10 @@
 					templateUrl: 'views/login.html',
 					controller: 'user', controllerAs: 'vm'
 				}).
+				when('/signup', {
+					templateUrl: 'views/signup.html',
+					controller: 'user', controllerAs:'vm'
+				}).
 				otherwise({
 					redirectTo: '/login'
 			});

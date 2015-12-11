@@ -107,6 +107,17 @@ app.get("/user", function(req, res){
     res.send(rows[0]);
   })
 })
+.post("/user", function(req, res){
+  var errors = user.validate(req.body);
+  if(errors){
+    res.status(500).send(errors);
+    return;
+  }
+  console.log(req.body);
+  user.save(req.body, function(err, row){
+    res.send(row);
+  })
+})
 .post("/login", function(req, res){
   user.get(req.body, function(err,rows){
     req.session.user = rows[0];

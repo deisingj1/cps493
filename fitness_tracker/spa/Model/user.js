@@ -8,7 +8,7 @@ module.exports =  {
         if(row){
           sql += " where login_name = ?";
         }
-        conn.query(sql,[row.userName], function(err,rows){
+        conn.query(sql,[row.login_name], function(err,rows){
           ret(err,rows);
           conn.end();
         });        
@@ -20,21 +20,20 @@ module.exports =  {
           conn.end();
         });        
     },
-    save: function(row, userId, ret){
+    save: function(row, ret){
         var sql;
         var conn = GetConnection();
         //  TODO Sanitize
         if (row.id) {
-				  sql = " Update FT_meals "
-							+ " Set meal=?, time=?, calories=? "
+				  sql = " Update FT_users "
+							+ " Set name=?, password=? "
 						  + " WHERE id = ? ";
 			  }else{
-				  sql = "INSERT INTO FT_meals "
-						  + " (meal, time, calories, create_time, user_id) "
-						  + "VALUES (?, ?, ?, Now()," + userId + " ) ";				
+				  sql = "INSERT INTO FT_users "
+						  + " (login_name, name, password, create_time) "
+						  + "VALUES (?, ?, ?, Now() ) ";				
 			  }
-
-        conn.query(sql, [row.meal, row.time, row.calories, row.id, userId],function(err,data){
+        conn.query(sql, [row.login_name, row.name, row.password],function(err,data){
           if(!err && !row.id){
             row.id = data.insertId;
           }
@@ -45,7 +44,7 @@ module.exports =  {
     validate: function(row){
       var errors = {};
       
-      if(!row.meal) errors.meal = "is required"; 
+      if(!row.name) errors.users = "is required"; 
       
       return errors.length ? errors : false;
     }

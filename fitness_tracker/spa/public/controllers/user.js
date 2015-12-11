@@ -17,4 +17,12 @@
                     alert(data.code);
                 });
 			}
+			self.signup = function(row) {
+				$http.post('/user', row)
+				.success(function(data){
+					self.login(row);
+				}).error(function(data){
+					alert(data.code);
+				});
+			}
 		})
