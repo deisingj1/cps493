@@ -37,7 +37,7 @@
 						<a href="#/workout">Workouts</a>
 					</li>
 					<li>
-						<a href="#/">Stats</a>
+						<a href="#/stats">Stats</a>
 					</li>
 				</ul>
        			<nav class="navbar navbar-default top-menu">
@@ -94,6 +94,10 @@
 					templateUrl: 'views/workout-index.html',
 					controller: 'workout', controllerAs: 'vm'
 				}).
+				when('/login', {
+					templateUrl: 'views/login.html',
+					controller: 'user', controllerAs: 'vm'
+				}).
 				otherwise({
 					redirectTo: '/login'
 			});
@@ -101,4 +105,5 @@
 	</script>
 	<script type="text/javascript" src="controllers/meal.js"></script>
 	<script type="text/javascript" src="controllers/workout.js"></script>
+	<script type="text/javascript" src="controllers/user.js"></script>
 </body> 

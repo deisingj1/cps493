@@ -93,7 +93,6 @@ app.get("/workout", function(req, res){
   })
 })
 app.get("/user", function(req, res){
-  req.session.userid = 0;
   user.get(null, function(err, rows){
     res.send(rows);
   })
@@ -103,10 +102,10 @@ app.get("/user", function(req, res){
     res.send(rows[0]);
   })
 })
-.get("/login/:id", function(req, res){
-  user.get(req.params.id, function(err,rows){
+.post("/login", function(req, res){
+  user.get(req.body.userId, function(err,rows){
     req.session.user = rows[0];
-    req.session.user.id = req.params.id;
+    req.session.user.id = req.body.userId;
     res.send(rows[0]);
   })
 })

@@ -1,37 +1,6 @@
-		<a class="btn btn-success" ng-click="vm.create()">New</a>
-		<a class="btn" ng-click="alert(req.session.userid);">Change user +</a>
-		<a class="btn" ng-click="alert(req.session.userid);">Change user -</a>
-		<a class="btn" ng-click="console.log(req.session.userid);">Test</a>
-		<table class="table table-striped">
-				<th>Action</th>
-				<th>Meal</th>
-				<th>Time</th>
-				<th>Calories</th>
-			<tr ng-repeat="row in vm.rows">
-				<td>
-					<a ng-click="vm.edit(row, $index)">Edit</a>
-					<a ng-click="vm.delete(row, $index)">Delete</a>
-				</td>
-				<td ng-if-start="!row.isEditing">
-					{{row.meal}}
-				</td>
-				<td>
-					{{row.time}}
-				</td>
-				<td ng-if-end>
-					{{row.calories}}
-				</td>
-				<td ng-if-start="row.isEditing">
-					<input type="text" name="workout" class="form-control" placeholder="Meal" ng-model="row.meal" />
-				</td>
-				<td>
-					<input type="text" name="time" class="form-control" placeholder="Time" ng-model="row.time" />
-				</td>
-				<td>
-					<input type="text" name="calories" class="form-control" placeholder="Calories" ng-model="row.calories" />
-				</td>
-				<td ng-if-end>
-					<input type="button" class="btn btn-primary" ng-click="vm.save(row, $index)" value="Submit"/>
-				</td>
-			</tr>
-			</table>
+		<h2>Login</h2>
+		
+		<input type="text" name="userId" class="form-control" placeholder="User Id" ng-model="row.userId" />
+		<input type="text" name="userName" class="form-control" placeholder="User Name" ng-model="row.userName" />
+		
+		<input type="button" class="btn btn-primary" ng-click="vm.login(row)" value="Submit"/>
