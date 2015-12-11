@@ -11,7 +11,8 @@
 			self.login = function(row) {
 			    $http.post('/login/', row)
 			      .success(function(data){
-                    window.location.href = "#/meal"
+                    window.location = "#/meal";
+                    window.location.reload();
 			      }).error(function(data){
                     alert(data.code);
                 });

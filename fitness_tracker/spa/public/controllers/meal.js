@@ -1,6 +1,13 @@
         angular.module('app')
-		.controller('meal', function($http, panel){
+		.controller('meal', function($http, $location, panel){
 			var self = this;
+			$http.get("/currentUser")
+			.success(function(data) {
+				if(!data.id) {
+					alert("You are not logged in!")
+					window.location = "#/login";
+				}	
+			})
 			$http.get("/meal")
 			.success(function(data) {
 				self.rows = data;
@@ -35,39 +42,39 @@
 							alert(data.code);
 						});
 					}					
-				});
-			}
-		})
-		.controller('mealSearch', function($http, $window, panel){
-            var self = this;
-            
-            self.row = {};
-            self.term = null;
+			});
+		}
+	})
+	.controller('mealSearch', function($http, $window, panel){
+        var self = this;
+        
+        self.row = {};
+        self.term = null;
+        self.choices = [];
+        
+        self.search = function(){
+        	if(self.term != "") {
+            	$http.get("/meal/search/" + self.term)
+            	.success(function(data){
+            	    self.choices = data.hits;
+        		});
+        	}
+        	else {
+        		self.choices = [];
+        	}
+        }
+        self.choose = function(choice){
+            self.row.meal = choice.fields.item_name;
+            self.row.calories = choice.fields.nf_calories;
             self.choices = [];
-            
-            self.search = function(){
-            	if(self.term != "") {
-                	$http.get("/meal/search/" + self.term)
-                	.success(function(data){
-                	    self.choices = data.hits;
-            		});
-            	}
-            	else {
-            		self.choices = [];
-            	}
-            }
-            self.choose = function(choice){
-                self.row.meal = choice.fields.item_name;
-                self.row.calories = choice.fields.nf_calories;
-                self.choices = [];
-            }
-            self.save = function(row) {
-				$http.post('/meal/', row)
-                    .success(function(data){
-                    	//self.rows[index] = data;
-                    	window.location.href = "#/meal";
-                    }).error(function(data){
-                        alert(data.code);
-                    });
+        }
+        self.save = function(row) {
+			$http.post('/meal/', row)
+                .success(function(data){
+                	//self.rows[index] = data;
+                	window.location.href = "#/meal";
+                }).error(function(data){
+                    alert(data.code);
+                });
 			}
         })

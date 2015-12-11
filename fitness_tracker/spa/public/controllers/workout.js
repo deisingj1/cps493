@@ -1,7 +1,13 @@
         angular.module('app')
-        .controller('workout', function($http, panel){
+        .controller('workout', function($http, $location, panel){
 			var self = this;
-			
+			$http.get("/currentUser")
+			.success(function(data) {
+				if(!data.id) {
+					alert("You are not logged in!")
+					window.location = "#/login";
+				}	
+			})	
 			$http.get("/workout")
 			.success(function(data) {
 				self.rows = data;
