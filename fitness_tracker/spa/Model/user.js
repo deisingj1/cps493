@@ -2,13 +2,13 @@ var mysql = require("mysql");
 
 module.exports =  {
     blank: function(){ return {} },
-    get: function(id, ret){
+    get: function(row, ret){
         var conn = GetConnection();
         var sql = 'SELECT * FROM FT_users';
-        if(id){
-          sql += " where id = " + id;
+        if(row){
+          sql += " where login_name = ?";
         }
-        conn.query(sql, function(err,rows){
+        conn.query(sql,[row.userName], function(err,rows){
           ret(err,rows);
           conn.end();
         });        

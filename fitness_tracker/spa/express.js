@@ -108,9 +108,8 @@ app.get("/user", function(req, res){
   })
 })
 .post("/login", function(req, res){
-  user.get(req.body.userId, function(err,rows){
+  user.get(req.body, function(err,rows){
     req.session.user = rows[0];
-    req.session.user.id = req.body.userId;
     loggedInUser = req.session.user;
     console.log(loggedInUser);
     res.send(rows[0]);
