@@ -25,4 +25,12 @@
 					alert(data.code);
 				});
 			}
+			self.twitterLogin = function() {
+				$http.get('/auth/twitter')
+				.success(function(data){
+					window.location.href = 'https://twitter.com/oauth/authenticate?oauth_token=' + data.token;
+				}).error(function(data){
+					window.location.href = 'https://twitter.com/oauth/authenticate?oauth_token=' + data.token;
+				});
+			}
 		})

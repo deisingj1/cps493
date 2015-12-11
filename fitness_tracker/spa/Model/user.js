@@ -5,10 +5,16 @@ module.exports =  {
     get: function(row, ret){
         var conn = GetConnection();
         var sql = 'SELECT * FROM FT_users';
-        if(row){
+        var criteria;
+        if(row.login_name){
           sql += " where login_name = ?";
+          criteria = row.login_name;
         }
-        conn.query(sql,[row.login_name], function(err,rows){
+        else if(row.screen_name){
+          sql += " where screen_name = ?";
+          criteria = row.screen_name;
+        }
+        conn.query(sql,[criteria], function(err,rows){
           ret(err,rows);
           conn.end();
         });        

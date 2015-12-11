@@ -5,7 +5,7 @@ var meal = require("./Model/meal");
 var user = require("./Model/user");
 var workout = require("./Model/workout")
 var unirest = require('unirest');
-var OAuth = require('oauth');
+var OAuth = require('oauth').OAuth;
 var Twit = require('twit');
 var session = require('express-session');
 var loggedInUser;
@@ -18,22 +18,69 @@ app.use(session({ secret: 'Ralph The Turtle',
     resave: true,
     saveUninitialized: true,
 }));
-var oauth = new OAuth.OAuth(
+var oa = new OAuth(
       'https://api.twitter.com/oauth/request_token',
       'https://api.twitter.com/oauth/access_token',
       'OTWlM046UyDTJJVKWGfupTsIl',
       'nFCbhILGnZVg45uzIDXZ8bIGD7kxw5Ycum8Eip5mqTs1btZfvK',
       '1.0A',
-      null,
+      'https://cps493-deisingj1.c9users.io/auth/twitter/callback',
       'HMAC-SHA1'
     );
     
-var twit = new Twit({
-    consumer_key:         'OTWlM046UyDTJJVKWGfupTsIl'
-  , consumer_secret:      'nFCbhILGnZVg45uzIDXZ8bIGD7kxw5Ycum8Eip5mqTs1btZfvK'
-  , access_token:         '2898507165-u1BC0kegroQv22OlHdJHLwf291hlxjUWhFlEQQi'
-  , access_token_secret:  'VPTMSQwi0mjbpRajD8Ziv8AFPKIvPlfqGy5qkjQMGicop'
-})
+var twit;
+
+app.get('/auth/twitter', function(req, res){
+	oa.getOAuthRequestToken(function(error, oauth_token, oauth_token_secret, results){
+		if (error) {
+			console.log(error);
+			res.send("yeah no. didn't work.")
+		}
+		else {
+			req.session.oauth = {};
+			req.session.oauth.token = oauth_token;
+			console.log('oauth.token: ' + req.session.oauth.token);
+			req.session.oauth.token_secret = oauth_token_secret;
+			console.log('oauth.token_secret: ' + req.session.oauth.token_secret);
+			res.send(req.session.oauth);
+	}
+	});
+});
+
+app.get('/auth/twitter/callback', function(req, res, next){
+	if (req.session.oauth) {
+		req.session.oauth.verifier = req.query.oauth_verifier;
+		var oauth = req.session.oauth;
+
+		oa.getOAuthAccessToken(oauth.token,oauth.token_secret,oauth.verifier, 
+		function(error, oauth_access_token, oauth_access_token_secret, results){
+			if (error){
+				console.log(error);
+				res.send("Error logging in.");
+			} else {
+				req.session.oauth.access_token = oauth_access_token;
+				req.session.oauth.access_token_secret = oauth_access_token_secret;
+				twit = new Twit({
+           consumer_key:         'OTWlM046UyDTJJVKWGfupTsIl'
+         , consumer_secret:      'nFCbhILGnZVg45uzIDXZ8bIGD7kxw5Ycum8Eip5mqTs1btZfvK'
+         , access_token:         oauth_access_token
+         , access_token_secret:  oauth_access_token_secret
+        })
+        user.get(results, function(err,rows){
+          req.session.user = rows[0];
+          loggedInUser = req.session.user;
+          console.log(loggedInUser);
+        })
+				console.log(results);
+				
+				res.redirect("/#/meal");
+				res.end();
+			}
+		}
+		);
+	} else
+		next(new Error("you're not supposed to be here."))
+});
 
 app.get("/meal", function(req, res){
   if(req.session.user) {
@@ -104,9 +151,11 @@ app.get("/workout", function(req, res){
   workout.save(req.body, req.session.user.id, function(err, row){
     res.send(row);
   })
-  twit.post('statuses/update', { status: 'I exercised by ' + req.body.workout + ' and burned ' + req.body.calories + ' calories!'}, function(err, data, response) {
-    console.log(data)
-  })
+  if(twit) {
+    twit.post('statuses/update', { status: 'I exercised by ' + req.body.workout + ' and burned ' + req.body.calories + ' calories!'}, function(err, data, response) {
+      console.log(data)
+    })
+  }
 })
 
 .delete("/workout/:id", function(req, res){
