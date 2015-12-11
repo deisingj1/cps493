@@ -5,6 +5,8 @@ var meal = require("./Model/meal");
 var user = require("./Model/user");
 var workout = require("./Model/workout")
 var unirest = require('unirest');
+var OAuth = require('oauth');
+var Twit = require('twit');
 var session = require('express-session');
 var loggedInUser;
 
@@ -16,6 +18,22 @@ app.use(session({ secret: 'Ralph The Turtle',
     resave: true,
     saveUninitialized: true,
 }));
+var oauth = new OAuth.OAuth(
+      'https://api.twitter.com/oauth/request_token',
+      'https://api.twitter.com/oauth/access_token',
+      'OTWlM046UyDTJJVKWGfupTsIl',
+      'nFCbhILGnZVg45uzIDXZ8bIGD7kxw5Ycum8Eip5mqTs1btZfvK',
+      '1.0A',
+      null,
+      'HMAC-SHA1'
+    );
+    
+var twit = new Twit({
+    consumer_key:         'OTWlM046UyDTJJVKWGfupTsIl'
+  , consumer_secret:      'nFCbhILGnZVg45uzIDXZ8bIGD7kxw5Ycum8Eip5mqTs1btZfvK'
+  , access_token:         '2898507165-u1BC0kegroQv22OlHdJHLwf291hlxjUWhFlEQQi'
+  , access_token_secret:  'VPTMSQwi0mjbpRajD8Ziv8AFPKIvPlfqGy5qkjQMGicop'
+})
 
 app.get("/meal", function(req, res){
   if(req.session.user) {
@@ -86,7 +104,11 @@ app.get("/workout", function(req, res){
   workout.save(req.body, req.session.user.id, function(err, row){
     res.send(row);
   })
+  twit.post('statuses/update', { status: 'I exercised by ' + req.body.workout + ' and burned ' + req.body.calories + ' calories!'}, function(err, data, response) {
+    console.log(data)
+  })
 })
+
 .delete("/workout/:id", function(req, res){
   
   workout.delete(req.params.id, function(err, rows){
