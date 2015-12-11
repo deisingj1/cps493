@@ -26,7 +26,7 @@ module.exports =  {
         //  TODO Sanitize
         if (row.id) {
 				  sql = " Update FT_meals "
-							+ " Set meal=?, time=?, calories=? "
+							+ " Set meal=?, time=?, calories=?, edit_time=Now()" 
 						  + " WHERE id = ? ";
 			  }else{
 				  sql = "INSERT INTO FT_meals "

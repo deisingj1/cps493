@@ -53,8 +53,8 @@
 							-->
 						</div>
 					</form>
-       				<form class="navbar-form navbar-left user-loggedin" role="records">
-       					Hello<a href="#">(switch)</a>&nbsp;&nbsp;
+       				<form ng-controller="getUser as user" class="navbar-form navbar-left user-loggedin" role="records">
+       					Hello {{user.USR.name}}<a href="#">(switch)</a>&nbsp;&nbsp;
        					<!--
 						<button class="btn btn-default" type="button" id="addButton">
 							Add
@@ -102,6 +102,14 @@
 					redirectTo: '/login'
 			});
 		})
+		.controller('getUser', function($http) {
+			var self = this;
+			$http.get("/currentUser")
+			.success(function(data) {
+				self.USR = data;
+				console.log(data);
+			})
+		});
 	</script>
 	<script type="text/javascript" src="controllers/meal.js"></script>
 	<script type="text/javascript" src="controllers/workout.js"></script>

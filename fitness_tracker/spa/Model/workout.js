@@ -2,11 +2,11 @@ var mysql = require("mysql");
 
 module.exports =  {
     blank: function(){ return {} },
-    get: function(id, ret){
+    get: function(id, userId, ret){
         var conn = GetConnection();
-        var sql = 'SELECT * FROM FT_workouts ';
+        var sql = 'SELECT * FROM FT_workouts where user_id = ' + userId;
         if(id){
-          sql += " WHERE id = " + id;
+          sql += ",id = " + id;
         }
         conn.query(sql, function(err,rows){
           ret(err,rows);
@@ -20,20 +20,20 @@ module.exports =  {
           conn.end();
         });        
     },
-    save: function(row, ret){
+    save: function(row, userId, ret){
         var sql;
         var conn = GetConnection();
         //  TODO Sanitize
         if (row.id) {
 				  sql = " Update FT_workouts "
-							+ " Set workout=?, time=?, calories=? "
+							+ " Set workout=?, time=?, calories=?, edit_time=Now()"
 						  + " WHERE id = ? ";
 			  }else{
 				  sql = "INSERT INTO FT_workouts "
-						  + " (workout, time, calories, create_time) "
-						  + "VALUES (?, ?, ?, Now() ) ";				
+						  + " (workout, time, calories, create_time, user_id) "
+						  + "VALUES (?, ?, ?, Now(), " + userId + ") ";				
 			  }
-        conn.query(sql, [row.workout, row.time, row.calories, row.id],function(err,data){
+        conn.query(sql, [row.workout, row.time, row.calories, row.id, userId],function(err,data){
           if(!err && !row.id){
             row.id = data.insertId;
           }

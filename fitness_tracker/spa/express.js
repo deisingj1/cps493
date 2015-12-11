@@ -6,6 +6,7 @@ var user = require("./Model/user");
 var workout = require("./Model/workout")
 var unirest = require('unirest');
 var session = require('express-session');
+var loggedInUser;
 
 console.log(__dirname + '/public');
 app.use(express.static(__dirname + '/public'));
@@ -17,10 +18,14 @@ app.use(session({ secret: 'Ralph The Turtle',
 }));
 
 app.get("/meal", function(req, res){
-  meal.get(null, req.session.user.id, function(err, rows){
-    res.send(rows);
-  })
-    
+  if(req.session.user) {
+    meal.get(null, req.session.user.id, function(err, rows){
+      res.send(rows);
+    })
+  }
+})
+.get("/currentUser", function(req, res){
+    res.send(loggedInUser);
 })
 .get("/meal/:id", function(req, res){
   
@@ -59,11 +64,11 @@ app.get("/meal", function(req, res){
     });
 })
 app.get("/workout", function(req, res){
-  
-  workout.get(null, function(err, rows){
-    res.send(rows);
-  })
-    
+  if(req.session.user) {
+    workout.get(null, req.session.user.id, function(err, rows){
+      res.send(rows);
+    })
+  }
 })
 .get("/workout/:id", function(req, res){
   
@@ -78,7 +83,7 @@ app.get("/workout", function(req, res){
     res.status(500).send(errors);
     return;
   }
-  workout.save(req.body, function(err, row){
+  workout.save(req.body, req.session.user.id, function(err, row){
     res.send(row);
   })
 })
@@ -106,6 +111,8 @@ app.get("/user", function(req, res){
   user.get(req.body.userId, function(err,rows){
     req.session.user = rows[0];
     req.session.user.id = req.body.userId;
+    loggedInUser = req.session.user;
+    console.log(loggedInUser);
     res.send(rows[0]);
   })
 })
