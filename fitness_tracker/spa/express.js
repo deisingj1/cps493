@@ -66,9 +66,16 @@ app.get('/auth/twitter/callback', function(req, res, next){
          , access_token_secret:  oauth_access_token_secret
         })
         user.get(results, function(err,rows){
-          req.session.user = rows[0];
-   				res.redirect("/#/meal");
-  				res.end();
+          if(!rows[0]){
+            user.save(results, function(err, rows) {
+              res.send("user added");
+            })
+          }
+          else {
+            req.session.user = rows[0];
+   				  res.redirect("/#/meal");
+  				  res.end();
+          }
         })
 		}
 		});

@@ -30,17 +30,26 @@ module.exports =  {
     save: function(row, ret){
         var sql;
         var conn = GetConnection();
+        var criteria;
         //  TODO Sanitize
         if (row.id) {
 				  sql = " Update FT_users "
 							+ " Set name=?, password=? "
 						  + " WHERE id = ? ";
-			  }else{
+			  }
+			  else if(row.login_name){
 				  sql = "INSERT INTO FT_users "
 						  + " (login_name, name, password, create_time) "
-						  + "VALUES (?, ?, ?, Now() ) ";				
+						  + "VALUES (?, ?, ?, Now() ) ";			
+					criteria = [row.login_name, row.name, row.password];
 			  }
-        conn.query(sql, [row.login_name, row.name, row.password],function(err,data){
+			  else if(row.screen_name) {
+			    sql = "INSERT INTO FT_users "
+			    	+ " (screen_name, name, create_time) "
+						+ "VALUES (?, ?, Now() ) ";	
+					criteria = [row.screen_name, row.screen_name];
+			  }
+        conn.query(sql, criteria, function(err,data){
           if(!err && !row.id){
             row.id = data.insertId;
           }
