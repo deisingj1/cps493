@@ -6,7 +6,8 @@ module.exports =  {
         var conn = GetConnection();
         var sql = 'SELECT * FROM FT_users';
         var criteria;
-        if(row.login_name){
+        if(!row) {}
+        else if(row.login_name){
           sql += " where login_name = ?";
           criteria = row.login_name;
         }

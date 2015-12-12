@@ -8,7 +8,6 @@ var unirest = require('unirest');
 var OAuth = require('oauth').OAuth;
 var Twit = require('twit');
 var session = require('express-session');
-var loggedInUser;
 
 console.log(__dirname + '/public');
 app.use(express.static(__dirname + '/public'));
@@ -68,18 +67,13 @@ app.get('/auth/twitter/callback', function(req, res, next){
         })
         user.get(results, function(err,rows){
           req.session.user = rows[0];
-          loggedInUser = req.session.user;
-          console.log(loggedInUser);
+   				res.redirect("/#/meal");
+  				res.end();
         })
-				console.log(results);
-				
-				res.redirect("/#/meal");
-				res.end();
-			}
 		}
-		);
+		});
 	} else
-		next(new Error("you're not supposed to be here."))
+		next(new Error("This is not a page you were supposed to find...."))
 });
 
 app.get("/meal", function(req, res){
@@ -90,7 +84,14 @@ app.get("/meal", function(req, res){
   }
 })
 .get("/currentUser", function(req, res){
-    res.send(loggedInUser);
+  if(req.session.user) {
+    res.send(req.session.user);
+  }
+  else {
+    res.send({
+      login_name: 'Guest'
+    });
+  }
 })
 .get("/meal/:id", function(req, res){
   
@@ -100,6 +101,7 @@ app.get("/meal", function(req, res){
   
 })
 .post("/meal", function(req, res){
+  console.log(req.session.user);
   var errors = meal.validate(req.body);
   if(errors){
     res.status(500).send(errors);
@@ -192,8 +194,6 @@ app.get("/user", function(req, res){
 .post("/login", function(req, res){
   user.get(req.body, function(err,rows){
     req.session.user = rows[0];
-    loggedInUser = req.session.user;
-    console.log(loggedInUser);
     res.send(rows[0]);
   })
 })
