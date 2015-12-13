@@ -68,7 +68,11 @@ app.get('/auth/twitter/callback', function(req, res, next){
         user.get(results, function(err,rows){
           if(!rows[0]){
             user.save(results, function(err, rows) {
-              res.send("user added");
+              user.get(results, function(err,rows) {
+                req.session.user = rows[0];
+                res.redirect("/#/meal");
+                res.end();               
+              })
             })
           }
           else {

@@ -28,7 +28,7 @@
        		<div class="col-sm-12">
 				<ul class="nav nav-tabs nav-justified">
 					<li class="active">
-						<a href="#/">Summary</a>
+						<a href="#/">Login</a>
 					</li>
 					<li>
 						<a href="#/meal">Meals</a>
@@ -42,7 +42,10 @@
 				</ul>
        			<nav class="navbar navbar-default top-menu">
 					<form class="navbar-form navbar-right" role="search">
-						<div class="input-group">
+						<div ng-controller="getUser as user" class="input-group">
+							<a ng-if="user.USR.name" href="#/settings" class="btn form-control">
+								<span class="glyphicon glyphicon-cog"></span>
+							</a>
 							<!--
 							<input type="text" class="form-control" placeholder="Search">
 							<span class="input-group-btn">
@@ -100,6 +103,10 @@
 				}).
 				when('/signup', {
 					templateUrl: 'views/signup.html',
+					controller: 'user', controllerAs:'vm'
+				}).
+				when('/settings', {
+					templateUrl: 'views/user-settings.html',
 					controller: 'user', controllerAs:'vm'
 				}).
 				otherwise({
