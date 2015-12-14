@@ -77,12 +77,13 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-route.min.js"></script>
-	<script type="text/javascript" src="//connect.facebook.net/en_US/sdk.js"></script>
-    <script type="text/javascript" src="directives/panel.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
+	<script type="text/javascript" src="directives/panel.js"></script>
+    
     
 
 	<script type="text/javascript">
-		angular.module('app',['ngRoute', 'deisingj1.directives'])
+		angular.module('app',['ngRoute', 'deisingj1.directives', 'ui.bootstrap'])
 		.config(function($routeProvider){
 			$routeProvider.
 				when('/meal', {
@@ -125,4 +126,5 @@
 	<script type="text/javascript" src="controllers/meal.js"></script>
 	<script type="text/javascript" src="controllers/workout.js"></script>
 	<script type="text/javascript" src="controllers/user.js"></script>
+    <script type="text/javascript" src="directives/typeahead.js"></script>
 </body> 

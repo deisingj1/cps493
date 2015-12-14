@@ -13,6 +13,15 @@ module.exports =  {
           conn.end();
         });        
     },
+    search: function(name, ret) {
+        var conn = GetConnection();
+        var sql = "SELECT meal, calories FROM FT_meals WHERE meal Like '%" + name + "%'";
+        conn.query(sql, function(err,rows){
+          console.log(rows);
+          ret(err,rows);
+          conn.end();
+        });     
+    },
     delete: function(id, ret){
         var conn = GetConnection();
         conn.query("DELETE FROM FT_meals WHERE id = " + id, function(err,rows){

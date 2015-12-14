@@ -1,5 +1,5 @@
         angular.module('app')
-		.controller('meal', function($http, $location, panel){
+		.controller('meal', function($http, $location, $scope, panel){
 			var self = this;
 			$http.get("/currentUser")
 			.success(function(data) {
@@ -14,8 +14,23 @@
 				$(".nav").children("li").removeClass("active");
 				$("a[href='#/meal']").closest("li").addClass("active");
 			});
-			self.create = function() {
-				self.rows.push({ isEditing: true });	
+			self.create = function(row, index) {
+				if(!row.time) {
+					row.time = new Date().toLocaleString();
+				}
+				panel.show({
+					title: "Confirm add",
+					body: "Are you sure you want to add " + row.meal + "?",
+					confirm: function() {
+						$http.post('/meal/', row)
+						.success(function(data) {
+							self.rows.push(row);
+							panel.show(false);
+						}).error(function(data) {
+							alert(data.code);
+						});
+					}	
+			});
 			}
 			self.edit = function(row, index){
 				row.isEditing = true;	
@@ -44,6 +59,17 @@
 					}					
 			});
 		}
+	$scope.getLocation = function(val) {
+		console.log(val);
+		return $http.get('/meal/find/' + val , {
+
+		}).then(function(response) {
+			return response.data;
+			(function(item) {
+				return item.meal;
+			});
+		});
+	}
 	})
 	.controller('mealSearch', function($http, $window, panel){
         var self = this;

@@ -109,7 +109,11 @@ app.get("/meal", function(req, res){
   meal.get(req.params.id, function(err, rows){
     res.send(rows[0]);
   })
-  
+})
+.get("/meal/find/:name", function(req, res){
+  meal.search(req.params.name, function(err, rows) {
+    res.send(rows);
+  })
 })
 .post("/meal", function(req, res){
   console.log(req.session.user);
