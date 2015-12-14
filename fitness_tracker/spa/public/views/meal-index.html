@@ -1,7 +1,7 @@
 		<form class="form-inline">
 		<a class="btn btn-success" href="#/meal/search">New</a>
 			<div class="form-group">
-   				 <input type="text" ng-model="asyncSelected" placeholder="Search previous meals" typeahead-on-select="vm.create($item, -1)"uib-typeahead="meal.meal for meal in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+   				 <input type="text" ng-model="asyncSelected" placeholder="Search/quick add" typeahead-on-select="vm.create($item, -1)"uib-typeahead="meal.meal for meal in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
    				 <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
    				 <div ng-show="noResults">
     			  <i class="glyphicon glyphicon-remove"></i> No Results Found
