@@ -8,6 +8,9 @@
 				$(".nav").children("li").removeClass("active");
 				$("a[href='#/']").closest("li").addClass("active");
 			});
+			self.settings = function(row) {
+				$http.post('/#/settings', row)
+			}
 			self.login = function(row) {
 			    $http.post('/login/', row)
 			      .success(function(data){

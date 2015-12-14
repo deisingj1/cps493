@@ -100,7 +100,7 @@ app.get("/meal", function(req, res){
   }
   else {
     res.send({
-      login_name: 'Guest'
+      name: 'Guest'
     });
   }
 })
