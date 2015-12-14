@@ -33,6 +33,9 @@ module.exports =  {
         var sql;
         var conn = GetConnection();
         //  TODO Sanitize
+        console.log(row.time);
+
+        console.log(row.time);
         if (row.id) {
 				  sql = " Update FT_meals "
 							+ " Set meal=?, time=?, calories=?, edit_time=Now()" 

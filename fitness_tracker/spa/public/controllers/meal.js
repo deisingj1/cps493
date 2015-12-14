@@ -15,9 +15,17 @@
 				$("a[href='#/meal']").closest("li").addClass("active");
 			});
 			self.create = function(row, index) {
-				if(!row.time) {
-					row.time = new Date().toLocaleString();
+				function ISODateString(d) {
+					function pad(n) {
+						return n < 10 ? '0' + n : n
+					}
+					return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate()) + ' ' + pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes()) + ':' + pad(d.getUTCSeconds())
 				}
+
+				var d = new Date();
+			    if(!row.time) {
+          			row.time = ISODateString(d);
+        		}
 				panel.show({
 					title: "Confirm add",
 					body: "Are you sure you want to add " + row.meal + "?",
